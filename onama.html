@@ -9,17 +9,20 @@
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Instrument+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap');
 
-  /* ============ DIZajn SUSTAV ============ */
+  /* ============ DIZAJN SUSTAV ============ */
   :root{
-    --coal:#131110;
-    --coal-soft:#1C1916;
-    --paper:#F4F0E6;
-    --paper-deep:#EAE4D4;
-    --brass:#C9954F;
-    --brass-bright:#E5B472;
-    --ink:#23201B;
-    --line:rgba(19,17,16,.14);
-    --line-light:rgba(244,240,230,.16);
+    /* --- boje: promijeni ovdje i mijenja se cijela stranica --- */
+    --dark:#161A19;          /* tamna podloga (zaglavlje, podnozje, hero) */
+    --dark-soft:#1F2523;
+    --light:#F1F1ED;         /* svijetla podloga stranice */
+    --light-deep:#E3E4DE;
+    --card:#FAFAF8;          /* kartice i polja obrasca */
+    --accent-deep:#3F6B50;   /* naglasak na svijetloj podlozi (tekst) */
+    --accent:#6FA37C;        /* naglasak: gumbi, okviri */
+    --accent-soft:#9CC9A4;   /* naglasak na tamnoj podlozi (tekst) */
+    --ink:#1C2120;           /* boja teksta */
+    --line:rgba(22,26,25,.14);
+    --line-light:rgba(241,241,237,.16);
     --radius:20px;
     --font-display:'Space Grotesk','Segoe UI',sans-serif;
     --font-body:'Instrument Sans',-apple-system,'Segoe UI',sans-serif;
@@ -29,28 +32,28 @@
   html{scroll-behavior:smooth;}
   body{
     margin:0;font-family:var(--font-body);color:var(--ink);line-height:1.65;
-    background:var(--paper);
+    background:var(--light);
     -webkit-font-smoothing:antialiased;
   }
   img{max-width:100%;}
   a{color:inherit;}
-  ::selection{background:var(--brass);color:var(--coal);}
+  ::selection{background:var(--accent);color:var(--dark);}
 
-  h1,h2,h3{font-family:var(--font-display);margin:0;line-height:1.08;letter-spacing:-.02em;color:var(--coal);}
+  h1,h2,h3{font-family:var(--font-display);margin:0;line-height:1.08;letter-spacing:-.02em;color:var(--dark);}
 
   .kicker{
     display:inline-flex;align-items:center;gap:.6rem;
     font-family:var(--font-display);font-size:.72rem;font-weight:600;
-    text-transform:uppercase;letter-spacing:.28em;color:var(--brass);
+    text-transform:uppercase;letter-spacing:.28em;color:var(--accent-deep);
   }
-  .kicker::before{content:'';width:34px;height:1px;background:var(--brass);display:inline-block;}
+  .kicker::before{content:'';width:34px;height:1px;background:currentColor;display:inline-block;}
 
   /* ============ ZAGLAVLJE (isto kao naslovna) ============ */
   header{
     position:sticky;top:0;z-index:100;
     display:grid;grid-template-columns:1fr auto 1fr;align-items:center;
     padding:.9rem 2rem;
-    background:rgba(19,17,16,.82);
+    background:rgba(22,26,25,.82);
     -webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);
     border-bottom:1px solid var(--line-light);
   }
@@ -70,11 +73,11 @@
   }
   .main-nav a::after{
     content:'';position:absolute;left:0;bottom:0;height:2px;width:100%;
-    background:var(--brass);transform:scaleX(0);transform-origin:left;
+    background:var(--accent-soft);transform:scaleX(0);transform-origin:left;
     transition:transform .3s ease;
   }
   .main-nav a:hover::after,.main-nav a[aria-current="page"]::after{transform:scaleX(1);}
-  .main-nav a[aria-current="page"]{color:var(--brass-bright);}
+  .main-nav a[aria-current="page"]{color:var(--accent-soft);}
 
   .lang-switch{
     justify-self:end;display:flex;gap:.25rem;
@@ -85,8 +88,8 @@
     padding:.32rem .7rem;border-radius:999px;text-decoration:none;color:rgba(255,255,255,.75);
     transition:color .2s,background .2s;
   }
-  .lang-btn:hover{color:var(--brass-bright);}
-  .lang-btn.active{background:var(--brass);color:var(--coal);}
+  .lang-btn:hover{color:var(--accent-soft);}
+  .lang-btn.active{background:var(--accent);color:var(--dark);}
 
   @media (max-width:860px){
     header{padding:.8rem 1rem;grid-template-columns:auto 1fr auto;gap:.75rem;}
@@ -101,7 +104,7 @@
     .nav-toggle:checked ~ .main-nav .nav-burger span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
     .main-nav ul{
       display:none;position:absolute;top:100%;left:0;right:0;
-      flex-direction:column;gap:0;background:var(--coal);
+      flex-direction:column;gap:0;background:var(--dark);
       border-bottom:1px solid var(--line-light);padding:.5rem 0;
     }
     .nav-toggle:checked ~ .main-nav ul{display:flex;}
@@ -115,7 +118,7 @@
   .about-page .kicker{margin-bottom:1.1rem;}
   .about-page h1{font-size:clamp(2.4rem,6vw,4rem);margin-bottom:1.6rem;}
   .about-page > p{font-size:1.08rem;max-width:700px;opacity:.92;}
-  .about-page > p strong{color:var(--coal);}
+  .about-page > p strong{color:var(--dark);}
 
   .about-images{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;margin-top:3rem;}
   .about-images img{
@@ -132,7 +135,7 @@
 
   /* ============ FOOTER (isto kao naslovna) ============ */
   footer{
-    background:var(--coal);color:var(--paper);
+    background:var(--dark);color:var(--light);
     padding:4rem 2rem 1.5rem;border-top:1px solid var(--line-light);
   }
   .footer-inner{
@@ -145,18 +148,18 @@
   .footer-about{margin-top:.9rem;max-width:280px;opacity:.65;line-height:1.6;}
   .footer-label{
     font-family:var(--font-display);font-size:.68rem;font-weight:600;text-transform:uppercase;
-    letter-spacing:.26em;color:var(--brass);display:block;margin-bottom:.9rem;
+    letter-spacing:.26em;color:var(--accent-soft);display:block;margin-bottom:.9rem;
   }
   .footer-btn{
     display:inline-block;margin-top:.8rem;margin-right:.5rem;
     font-family:var(--font-display);font-size:.72rem;font-weight:600;
     text-transform:uppercase;letter-spacing:.12em;
     border:1px solid var(--line-light);padding:.6rem 1.2rem;border-radius:999px;
-    text-decoration:none;color:var(--paper);transition:all .25s;
+    text-decoration:none;color:var(--light);transition:all .25s;
   }
-  .footer-btn:hover{border-color:var(--brass);color:var(--brass-bright);}
-  .footer-btn.filled{background:var(--brass);border-color:var(--brass);color:var(--coal);}
-  .footer-btn.filled:hover{background:var(--brass-bright);border-color:var(--brass-bright);color:var(--coal);}
+  .footer-btn:hover{border-color:var(--accent);color:var(--accent-soft);}
+  .footer-btn.filled{background:var(--accent);border-color:var(--accent);color:var(--dark);}
+  .footer-btn.filled:hover{background:var(--accent-soft);border-color:var(--accent-soft);color:var(--dark);}
   .footer-bottom{
     border-top:1px solid var(--line-light);margin-top:3rem;padding-top:1.4rem;
     text-align:center;font-size:.72rem;opacity:.45;
@@ -172,7 +175,7 @@
 
 <header>
   <a class="brand" href="index.html">
-    <img src="https://placehold.co/88x88/131110/C9954F?text=K" alt="NAZIV_FIRME logo">
+    <img src="img/logo.svg" alt="NAZIV_FIRME logo">
     <span class="brand-name">NAZIV_FIRME</span>
   </a>
 
@@ -203,8 +206,8 @@
 
   <div class="about-images">
     <!-- UREDI: zamijeni obje fotografije (npr. tim/radionica) -->
-    <img src="https://placehold.co/700x600/2E2019/F4F0E6?text=Fotografija+1" alt="NAZIV_FIRME - radionica i izrada kuhinja po mjeri">
-    <img src="https://placehold.co/700x600/131110/F4F0E6?text=Fotografija+2" alt="NAZIV_FIRME - tim i pristup radu">
+    <img src="img/placeholder-alat.svg" alt="NAZIV_FIRME - radionica i izrada kuhinja po mjeri">
+    <img src="img/placeholder-detalj.svg" alt="NAZIV_FIRME - tim i pristup radu">
   </div>
 </main>
 
@@ -212,7 +215,7 @@
   <div class="footer-inner">
     <div class="footer-col footer-brand">
       <div class="brand">
-        <img src="https://placehold.co/60x60/131110/C9954F?text=K" alt="NAZIV_FIRME logo" style="width:38px;height:38px;border-radius:9px;">
+        <img src="img/logo.svg" alt="NAZIV_FIRME logo" style="width:38px;height:38px;border-radius:9px;">
         <span class="brand-name">NAZIV_FIRME</span>
       </div>
       <p class="footer-about">Radimo namještaj, ormare i <strong>kuhinje po mjeri</strong>, prema Vašim željama.</p>
