@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="hr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>O nama | NAZIV_FIRME</title>
+<meta name="description" content="O nama - NAZIV_FIRME se bavi izradom kuhinja po mjeri i stolarskim radovima već 10 godina.">
+<meta name="keywords" content="izrada kuhinja po mjeri, montaža kuhinja, stolarski radovi, kuhinje po mjeri">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Instrument+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap');
+
+  /* ============ DIZajn SUSTAV ============ */
+  :root{
+    --coal:#131110;
+    --coal-soft:#1C1916;
+    --paper:#F4F0E6;
+    --paper-deep:#EAE4D4;
+    --brass:#C9954F;
+    --brass-bright:#E5B472;
+    --ink:#23201B;
+    --line:rgba(19,17,16,.14);
+    --line-light:rgba(244,240,230,.16);
+    --radius:20px;
+    --font-display:'Space Grotesk','Segoe UI',sans-serif;
+    --font-body:'Instrument Sans',-apple-system,'Segoe UI',sans-serif;
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;font-family:var(--font-body);color:var(--ink);line-height:1.65;
+    background:var(--paper);
+    -webkit-font-smoothing:antialiased;
+  }
+  img{max-width:100%;}
+  a{color:inherit;}
+  ::selection{background:var(--brass);color:var(--coal);}
+
+  h1,h2,h3{font-family:var(--font-display);margin:0;line-height:1.08;letter-spacing:-.02em;color:var(--coal);}
+
+  .kicker{
+    display:inline-flex;align-items:center;gap:.6rem;
+    font-family:var(--font-display);font-size:.72rem;font-weight:600;
+    text-transform:uppercase;letter-spacing:.28em;color:var(--brass);
+  }
+  .kicker::before{content:'';width:34px;height:1px;background:var(--brass);display:inline-block;}
+
+  /* ============ ZAGLAVLJE (isto kao naslovna) ============ */
+  header{
+    position:sticky;top:0;z-index:100;
+    display:grid;grid-template-columns:1fr auto 1fr;align-items:center;
+    padding:.9rem 2rem;
+    background:rgba(19,17,16,.82);
+    -webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);
+    border-bottom:1px solid var(--line-light);
+  }
+  .brand{display:flex;align-items:center;gap:.8rem;justify-self:start;text-decoration:none;}
+  .brand img{width:42px;height:42px;border-radius:10px;display:block;}
+  .brand-name{
+    font-family:var(--font-display);font-weight:600;font-size:1.15rem;
+    letter-spacing:.01em;color:#fff;
+  }
+  /* izbornik: tri paralelne crte, sve stavke unutra (bez JS-a) */
+  .menu{justify-self:center;position:relative;}
+  .menu > summary{
+    list-style:none;cursor:pointer;
+    display:flex;align-items:center;justify-content:center;
+    width:46px;height:46px;border-radius:12px;
+    border:1px solid rgba(255,255,255,.28);
+    transition:border-color .25s,background .25s;
+  }
+  .menu > summary::-webkit-details-marker{display:none;}
+  .menu > summary:hover{border-color:var(--brass);background:rgba(255,255,255,.08);}
+  .menu > summary:focus-visible{outline:2px solid var(--brass-bright);outline-offset:3px;}
+  .burger{display:flex;flex-direction:column;gap:5px;}
+  .burger i{display:block;width:22px;height:2px;background:#fff;transition:transform .25s,opacity .25s;}
+  .menu[open] .burger i:nth-child(1){transform:translateY(7px) rotate(45deg);}
+  .menu[open] .burger i:nth-child(2){opacity:0;}
+  .menu[open] .burger i:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+  .menu nav{
+    position:absolute;top:calc(100% + .65rem);left:50%;transform:translateX(-50%);
+    background:var(--coal);border:1px solid var(--line-light);
+    border-radius:16px;padding:.5rem;min-width:235px;
+    box-shadow:0 26px 55px -22px rgba(0,0,0,.6);
+  }
+  .menu ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;}
+  .menu nav a{
+    display:block;padding:.7rem 1.1rem;border-radius:10px;
+    color:#fff;text-decoration:none;font-weight:500;font-size:.95rem;
+    white-space:nowrap;text-align:center;transition:background .2s,color .2s;
+  }
+  .menu nav a:hover{background:rgba(255,255,255,.1);color:var(--brass-bright);}
+  .menu nav a[aria-current="page"]{color:var(--brass-bright);}
+
+  .lang-switch{
+    justify-self:end;display:flex;gap:.25rem;
+    border:1px solid var(--line-light);border-radius:999px;padding:.22rem;
+  }
+  .lang-btn{
+    font-family:var(--font-display);font-size:.72rem;font-weight:600;letter-spacing:.08em;
+    padding:.32rem .7rem;border-radius:999px;text-decoration:none;color:rgba(255,255,255,.75);
+    transition:color .2s,background .2s;
+  }
+  .lang-btn:hover{color:var(--brass-bright);}
+  .lang-btn.active{background:var(--brass);color:var(--coal);}
+
+  @media (max-width:860px){
+    header{padding:.8rem 1rem;gap:.75rem;}
+    .brand-name{font-size:1rem;}
+    .lang-btn{padding:.28rem .55rem;font-size:.66rem;}
+  }
+  @media (max-width:430px){
+    .brand-name{display:none;}
+  }
+
+  /* ============ SADRŽAJ: O NAMA ============ */
+  .about-page{padding:clamp(3rem,7vw,5.5rem) 2rem;max-width:1000px;margin:0 auto;}
+  .about-page .kicker{margin-bottom:1.1rem;}
+  .about-page h1{font-size:clamp(2.4rem,6vw,4rem);margin-bottom:1.6rem;}
+  .about-page > p{font-size:1.08rem;max-width:700px;opacity:.92;}
+  .about-page > p strong{color:var(--coal);}
+
+  .about-images{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;margin-top:3rem;}
+  .about-images img{
+    width:100%;height:440px;object-fit:cover;display:block;
+    border-radius:var(--radius);
+    transition:transform .4s ease;
+  }
+  .about-images img:hover{transform:scale(1.015);}
+
+  @media (max-width:720px){
+    .about-images{grid-template-columns:1fr;}
+    .about-images img{height:300px;}
+  }
+
+  /* ============ FOOTER (isto kao naslovna) ============ */
+  footer{
+    background:var(--coal);color:var(--paper);
+    padding:4rem 2rem 1.5rem;border-top:1px solid var(--line-light);
+  }
+  .footer-inner{
+    display:flex;justify-content:space-between;gap:3rem;flex-wrap:wrap;
+    max-width:1200px;margin:0 auto;
+  }
+  .footer-col{flex:1;min-width:230px;font-size:.9rem;}
+  .footer-col p{margin:.3rem 0;opacity:.85;}
+  .footer-brand .brand-name{font-size:1.05rem;}
+  .footer-about{margin-top:.9rem;max-width:280px;opacity:.65;line-height:1.6;}
+  .footer-label{
+    font-family:var(--font-display);font-size:.68rem;font-weight:600;text-transform:uppercase;
+    letter-spacing:.26em;color:var(--brass);display:block;margin-bottom:.9rem;
+  }
+  .footer-btn{
+    display:inline-block;margin-top:.8rem;margin-right:.5rem;
+    font-family:var(--font-display);font-size:.72rem;font-weight:600;
+    text-transform:uppercase;letter-spacing:.12em;
+    border:1px solid var(--line-light);padding:.6rem 1.2rem;border-radius:999px;
+    text-decoration:none;color:var(--paper);transition:all .25s;
+  }
+  .footer-btn:hover{border-color:var(--brass);color:var(--brass-bright);}
+  .footer-btn.filled{background:var(--brass);border-color:var(--brass);color:var(--coal);}
+  .footer-btn.filled:hover{background:var(--brass-bright);border-color:var(--brass-bright);color:var(--coal);}
+  .footer-bottom{
+    border-top:1px solid var(--line-light);margin-top:3rem;padding-top:1.4rem;
+    text-align:center;font-size:.72rem;opacity:.45;
+    max-width:1200px;margin-left:auto;margin-right:auto;letter-spacing:.06em;
+  }
+  @media (max-width:720px){
+    .footer-inner{gap:2.2rem;}
+    .footer-col{min-width:100%;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <a class="brand" href="index.html">
+    <img src="https://placehold.co/88x88/131110/C9954F?text=K" alt="NAZIV_FIRME logo">
+    <span class="brand-name">NAZIV_FIRME</span>
+  </a>
+
+  <details class="menu">
+    <summary aria-label="Otvori izbornik"><span class="burger"><i></i><i></i><i></i></span></summary>
+    <nav aria-label="Glavna navigacija">
+      <ul>
+        <li><a href="onama.html" aria-current="page">O nama</a></li>
+        <li><a href="projekti.html">Projekti</a></li>
+        <li><a href="galerija.html">Galerija fotografija</a></li>
+        <li><a href="kontakt.html">Kontakt</a></li>
+      </ul>
+    </nav>
+  </details>
+
+  <div class="lang-switch">
+    <a href="index.html" class="lang-btn active">HR</a>
+    <a href="/en/" class="lang-btn">EN</a>
+    <a href="/de/" class="lang-btn">DE</a>
+  </div>
+</header>
+
+<main class="about-page">
+  <span class="kicker">Tko smo</span>
+  <h1>O nama</h1>
+  <p>Što dva inženjera, matematičar i stolarka imaju zajedničko? Obožavaju precizan rad s rukama i rad s drvom, konkretno u ovom slučaju uživaju u <strong>izradi i montaži kuhinja po mjeri</strong>, u kojima će korisnici sigurno uživati sljedećih 20 godina. Firma NAZIV_FIRME bavi se <strong>izradom kuhinja po mjeri</strong> već 10 godina, s fokusom na preciznost, kvalitetu materijala i dogovor s klijentom u svakom koraku. Osim kuhinja, izvodimo i druge <strong>stolarske radove</strong> po narudžbi – od ormara do namještaja izrađenog točno za vaš prostor.</p>
+
+  <div class="about-images">
+    <!-- UREDI: zamijeni obje fotografije (npr. tim/radionica) -->
+    <img src="https://placehold.co/700x600/2E2019/F4F0E6?text=Fotografija+1" alt="NAZIV_FIRME - radionica i izrada kuhinja po mjeri">
+    <img src="https://placehold.co/700x600/131110/F4F0E6?text=Fotografija+2" alt="NAZIV_FIRME - tim i pristup radu">
+  </div>
+</main>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-col footer-brand">
+      <div class="brand">
+        <img src="https://placehold.co/60x60/131110/C9954F?text=K" alt="NAZIV_FIRME logo" style="width:38px;height:38px;border-radius:9px;">
+        <span class="brand-name">NAZIV_FIRME</span>
+      </div>
+      <p class="footer-about">Radimo namještaj, ormare i <strong>kuhinje po mjeri</strong>, prema Vašim željama.</p>
+    </div>
+
+    <div class="footer-col">
+      <span class="footer-label">Kontakt</span>
+      <p>EMAIL_ZA_KONTAKT</p>
+      <p>+385 00 000 0000</p>
+      <div>
+        <a href="kontakt.html" class="footer-btn filled">Pošaljite upit</a>
+        <a href="FACEBOOK_LINK" class="footer-btn">Facebook</a>
+      </div>
+    </div>
+
+    <div class="footer-col">
+      <span class="footer-label">Podaci o tvrtki</span>
+      <p>NAZIV_FIRME d.o.o.</p>
+      <p>SJEDIŠTE_FIRME</p>
+      <p>OIB: OIB_BROJ</p>
+    </div>
+  </div>
+  <div class="footer-bottom">&copy; 2026 NAZIV_FIRME. Sva prava pridržana.</div>
+</footer>
+
+</body>
+</html>

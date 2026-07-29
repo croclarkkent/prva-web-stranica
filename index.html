@@ -9,57 +9,64 @@
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Instrument+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap');
 
-  /* ============ DIZajn SUSTAV ============ */
+  /* ==================================================================
+     BOJE — promijeni ovdje i mijenja se cijela stranica
+     ================================================================== */
   :root{
-    --coal:#131110;          /* topla, gotovo crna */
-    --coal-soft:#1C1916;
-    --paper:#F4F0E6;         /* topli off-white */
-    --paper-deep:#EAE4D4;
-    --brass:#C9954F;         /* mjed / brušeni mesing */
-    --brass-bright:#E5B472;
-    --ink:#23201B;
-    --line:rgba(19,17,16,.14);
-    --line-light:rgba(244,240,230,.16);
-    --radius:20px;
+    --brown-dark:#2A1B10;     /* tamno smeđa — osnovna podloga */
+    --brown-light:#A97C50;    /* svijetlo smeđa */
+    --orange:#E2661A;         /* narančasta */
+    --orange-light:#F5A85C;   /* svijetlo narančasta */
+    --white:#FFFFFF;
+    --black:#120C07;
+    --cream:#F7F0E6;          /* dodatna: polja obrasca i svijetle plohe */
+
     --font-display:'Space Grotesk','Segoe UI',sans-serif;
     --font-body:'Instrument Sans',-apple-system,'Segoe UI',sans-serif;
+    --wrap:1180px;
+    --radius:16px;
   }
 
   *{box-sizing:border-box;}
   html{scroll-behavior:smooth;}
   body{
-    margin:0;font-family:var(--font-body);color:var(--ink);line-height:1.65;
-    background:var(--paper);
+    margin:0;font-family:var(--font-body);line-height:1.65;
+    color:var(--white);background:var(--brown-dark);
     -webkit-font-smoothing:antialiased;
   }
   img{max-width:100%;}
   a{color:inherit;}
-  ::selection{background:var(--brass);color:var(--coal);}
-
+  ::selection{background:var(--orange);color:var(--white);}
+  a:focus-visible,summary:focus-visible,button:focus-visible,
+  input:focus-visible,textarea:focus-visible{outline:2px solid var(--orange-light);outline-offset:3px;}
   h1,h2,h3{font-family:var(--font-display);margin:0;line-height:1.08;letter-spacing:-.02em;}
 
-  /* mala "kicker" etiketa iznad naslova */
-  .kicker{
-    display:inline-flex;align-items:center;gap:.6rem;
-    font-family:var(--font-display);font-size:.72rem;font-weight:600;
-    text-transform:uppercase;letter-spacing:.28em;color:var(--brass);
+  /* ==================================================================
+     POZADINA — kosi nepravilni oblici, ista na svim stranicama.
+     Fiksna je pa se ne miče dok se stranica skrola.
+     Zaglavlje i podnožje su prozirni, pa se vidi kroz njih.
+     ================================================================== */
+  .pozadina{
+    position:fixed;inset:0;z-index:-1;
+    background:url('img/pozadina.svg') center/cover no-repeat, var(--brown-dark);
   }
-  .kicker::before{content:'';width:34px;height:1px;background:var(--brass);display:inline-block;}
 
-  /* ============ ZAGLAVLJE ============ */
+  /* ==================================================================
+     ZAGLAVLJE
+     ================================================================== */
   header{
     position:sticky;top:0;z-index:100;
     display:grid;grid-template-columns:1fr auto 1fr;align-items:center;
-    padding:.9rem 2rem;
-    background:rgba(19,17,16,.82);
+    gap:1rem;padding:.75rem clamp(1rem,3vw,2.4rem);
+    background:rgba(24,15,9,.62);
     -webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);
-    border-bottom:1px solid var(--line-light);
+    border-bottom:1px solid rgba(247,240,230,.15);
   }
-  .brand{display:flex;align-items:center;gap:.8rem;justify-self:start;text-decoration:none;}
-  .brand img{width:42px;height:42px;border-radius:10px;display:block;}
+  .brand{display:flex;align-items:center;gap:.75rem;justify-self:start;text-decoration:none;}
+  .brand img{width:42px;height:42px;border-radius:11px;display:block;}
   .brand-name{
-    font-family:var(--font-display);font-weight:600;font-size:1.15rem;
-    letter-spacing:.01em;color:#fff;
+    font-family:var(--font-display);font-weight:600;font-size:1.1rem;
+    letter-spacing:.01em;color:var(--white);
   }
 
   /* izbornik: tri paralelne crte, sve stavke unutra (bez JS-a) */
@@ -68,139 +75,155 @@
     list-style:none;cursor:pointer;
     display:flex;align-items:center;justify-content:center;
     width:46px;height:46px;border-radius:12px;
-    border:1px solid rgba(255,255,255,.28);
+    border:1px solid rgba(247,240,230,.3);
     transition:border-color .25s,background .25s;
   }
   .menu > summary::-webkit-details-marker{display:none;}
-  .menu > summary:hover{border-color:var(--brass);background:rgba(255,255,255,.08);}
-  .menu > summary:focus-visible{outline:2px solid var(--brass-bright);outline-offset:3px;}
+  .menu > summary:hover{border-color:var(--orange-light);background:rgba(247,240,230,.08);}
   .burger{display:flex;flex-direction:column;gap:5px;}
-  .burger i{display:block;width:22px;height:2px;background:#fff;transition:transform .25s,opacity .25s;}
+  .burger i{display:block;width:22px;height:2px;background:var(--white);transition:transform .25s,opacity .25s;}
   .menu[open] .burger i:nth-child(1){transform:translateY(7px) rotate(45deg);}
   .menu[open] .burger i:nth-child(2){opacity:0;}
   .menu[open] .burger i:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
   .menu nav{
     position:absolute;top:calc(100% + .65rem);left:50%;transform:translateX(-50%);
-    background:var(--coal);border:1px solid var(--line-light);
-    border-radius:16px;padding:.5rem;min-width:235px;
-    box-shadow:0 26px 55px -22px rgba(0,0,0,.6);
+    background:var(--black);border:1px solid rgba(247,240,230,.2);
+    border-radius:var(--radius);padding:.5rem;min-width:235px;
+    box-shadow:0 26px 55px -22px rgba(0,0,0,.8);
   }
   .menu ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;}
   .menu nav a{
     display:block;padding:.7rem 1.1rem;border-radius:10px;
-    color:#fff;text-decoration:none;font-weight:500;font-size:.95rem;
+    color:var(--white);text-decoration:none;font-weight:500;font-size:.95rem;
     white-space:nowrap;text-align:center;transition:background .2s,color .2s;
   }
-  .menu nav a:hover{background:rgba(255,255,255,.1);color:var(--brass-bright);}
-  .menu nav a[aria-current="page"]{color:var(--brass-bright);}
+  .menu nav a:hover{background:rgba(247,240,230,.12);color:var(--orange-light);}
+  .menu nav a[aria-current="page"]{color:var(--orange-light);}
 
   /* jezici HR / EN / DE */
-  .lang-switch{
+  .lang{
     justify-self:end;display:flex;gap:.25rem;
-    border:1px solid var(--line-light);border-radius:999px;padding:.22rem;
+    border:1px solid rgba(247,240,230,.3);border-radius:999px;padding:.22rem;
   }
   .lang-btn{
     font-family:var(--font-display);font-size:.72rem;font-weight:600;letter-spacing:.08em;
-    padding:.32rem .7rem;border-radius:999px;text-decoration:none;color:rgba(255,255,255,.75);
+    padding:.32rem .7rem;border-radius:999px;text-decoration:none;color:rgba(255,255,255,.82);
     transition:color .2s,background .2s;
   }
-  .lang-btn:hover{color:var(--brass-bright);}
-  .lang-btn.active{background:var(--brass);color:var(--coal);}
+  .lang-btn:hover{color:var(--orange-light);}
+  .lang-btn.active{background:var(--orange);color:var(--white);}
 
-  @media (max-width:860px){
-    header{padding:.8rem 1rem;gap:.75rem;}
-    .brand-name{font-size:1rem;}
-    .lang-btn{padding:.28rem .55rem;font-size:.66rem;}
-  }
   @media (max-width:430px){
     .brand-name{display:none;}
+    .lang-btn{padding:.28rem .5rem;font-size:.66rem;}
   }
 
-  /* ============ HERO PANELI (3 slike, jedna ispod druge) ============ */
-  .scroll-frame{background:var(--coal);}
-  .scroll-img{
-    position:relative;height:100svh;min-height:480px;
-    background-size:cover;background-position:center;overflow:hidden;
+  /* ==================================================================
+     ZAJEDNIČKI ELEMENTI SADRŽAJA
+     ================================================================== */
+  .wrap{max-width:var(--wrap);margin:0 auto;padding:clamp(3rem,7vw,5.5rem) clamp(1rem,4vw,2rem);}
+  .kicker{
+    display:inline-flex;align-items:center;gap:.6rem;
+    font-family:var(--font-display);font-size:.72rem;font-weight:600;
+    text-transform:uppercase;letter-spacing:.26em;color:var(--orange-light);
+    margin-bottom:1.1rem;
   }
-  .scroll-img::after{
-    content:'';position:absolute;inset:0;
-    background:linear-gradient(180deg,rgba(19,17,16,.25) 0%,rgba(19,17,16,.05) 40%,rgba(19,17,16,.78) 100%);
-  }
-  .scroll-overlay{
-    position:absolute;inset:0;z-index:2;
-    display:flex;flex-direction:column;justify-content:flex-end;
-    padding:clamp(2rem,6vw,4.5rem);
-  }
-  .scroll-overlay .kicker{margin-bottom:1rem;color:var(--brass-bright);}
-  .scroll-overlay h1,.scroll-overlay h2{
-    color:#fff;font-size:clamp(2.4rem,6.5vw,5rem);font-weight:600;max-width:14ch;
-  }
-  .panel-num{
-    position:absolute;top:clamp(1.5rem,4vw,3rem);right:clamp(1.5rem,4vw,3rem);z-index:2;
-    font-family:var(--font-display);font-weight:700;font-size:clamp(3rem,8vw,6rem);
-    color:transparent;-webkit-text-stroke:1px rgba(255,255,255,.35);line-height:1;
-  }
-  .scroll-hint{
-    position:absolute;left:50%;bottom:1.4rem;transform:translateX(-50%);z-index:3;
-    color:rgba(255,255,255,.7);font-size:1.3rem;text-decoration:none;
-    animation:bob 2s ease-in-out infinite;
-  }
-  @keyframes bob{0%,100%{transform:translate(-50%,0);}50%{transform:translate(-50%,8px);}}
-  @media (prefers-reduced-motion:reduce){.scroll-hint{animation:none;}}
-  /* na uskim ekranima naslov dosegne dno panela, pa strelica smeta */
-  @media (max-width:860px){.scroll-hint{display:none;}}
+  .kicker::before{content:'';width:34px;height:1px;background:currentColor;display:inline-block;}
+  .naslov{font-size:clamp(2.3rem,6vw,4rem);font-weight:600;}
+  .uvod{max-width:62ch;opacity:.92;margin:1.1rem 0 0;}
 
-  /* ============ FOOTER ============ */
+  .btn{
+    display:inline-block;font-family:var(--font-display);font-size:.74rem;font-weight:700;
+    text-transform:uppercase;letter-spacing:.12em;
+    padding:.85rem 1.6rem;border-radius:999px;text-decoration:none;
+    background:var(--orange);color:var(--white);border:1px solid var(--orange);
+    transition:background .25s,border-color .25s,transform .2s;
+  }
+  .btn:hover{background:var(--orange-light);border-color:var(--orange-light);color:var(--black);transform:translateY(-2px);}
+  .btn--linija{background:transparent;border-color:rgba(247,240,230,.42);color:var(--white);}
+  .btn--linija:hover{background:transparent;border-color:var(--orange-light);color:var(--orange-light);}
+
+  /* ==================================================================
+     PODNOŽJE — prozirno, pozadina se vidi kroz njega
+     ================================================================== */
   footer{
-    background:var(--coal);color:var(--paper);
-    padding:4rem 2rem 1.5rem;border-top:1px solid var(--line-light);
+    border-top:1px solid rgba(247,240,230,.16);
+    background:rgba(18,12,7,.42);
+    color:var(--white);
+    padding:3.5rem clamp(1rem,4vw,2rem) 1.5rem;
   }
   .footer-inner{
-    display:flex;justify-content:space-between;gap:3rem;flex-wrap:wrap;
-    max-width:1200px;margin:0 auto;
+    display:flex;justify-content:space-between;gap:2.5rem;flex-wrap:wrap;
+    max-width:var(--wrap);margin:0 auto;
   }
-  .footer-col{flex:1;min-width:230px;font-size:.9rem;}
-  .footer-col p{margin:.3rem 0;opacity:.85;}
-  .footer-brand .brand-name{font-size:1.05rem;}
-  .footer-about{margin-top:.9rem;max-width:280px;opacity:.65;line-height:1.6;}
+  .footer-col{flex:1;min-width:225px;font-size:.9rem;}
+  .footer-col p{margin:.3rem 0;opacity:.9;}
+  .footer-brand .brand-name{display:block;font-size:1.05rem;}
+  .footer-about{margin-top:.9rem;max-width:280px;opacity:.78;line-height:1.6;}
   .footer-label{
     font-family:var(--font-display);font-size:.68rem;font-weight:600;text-transform:uppercase;
-    letter-spacing:.26em;color:var(--brass);display:block;margin-bottom:.9rem;
+    letter-spacing:.24em;color:var(--orange-light);display:block;margin-bottom:.9rem;
   }
-  .footer-btn{
-    display:inline-block;margin-top:.8rem;margin-right:.5rem;
-    font-family:var(--font-display);font-size:.72rem;font-weight:600;
-    text-transform:uppercase;letter-spacing:.12em;
-    border:1px solid var(--line-light);padding:.6rem 1.2rem;border-radius:999px;
-    text-decoration:none;color:var(--paper);transition:all .25s;
-  }
-  .footer-btn:hover{border-color:var(--brass);color:var(--brass-bright);}
-  .footer-btn.filled{background:var(--brass);border-color:var(--brass);color:var(--coal);}
-  .footer-btn.filled:hover{background:var(--brass-bright);border-color:var(--brass-bright);color:var(--coal);}
+  .footer-col .btn{margin-top:.9rem;margin-right:.5rem;padding:.6rem 1.15rem;font-size:.7rem;}
   .footer-bottom{
-    border-top:1px solid var(--line-light);margin-top:3rem;padding-top:1.4rem;
-    text-align:center;font-size:.72rem;opacity:.45;
-    max-width:1200px;margin-left:auto;margin-right:auto;letter-spacing:.06em;
+    border-top:1px solid rgba(247,240,230,.16);margin-top:2.5rem;padding-top:1.3rem;
+    text-align:center;font-size:.72rem;opacity:.6;letter-spacing:.06em;
+    max-width:var(--wrap);margin-left:auto;margin-right:auto;
   }
-  @media (max-width:720px){
-    .footer-inner{gap:2.2rem;}
-    .footer-col{min-width:100%;}
+  @media (max-width:720px){ .footer-col{min-width:100%;} }
+
+  /* ==================================================================
+     NASLOVNICA — svaka slika zauzima cijeli ekran
+     ================================================================== */
+  .panel{
+    position:relative;overflow:hidden;
+    height:100svh;min-height:520px;
+    background-size:cover;background-position:center;
+    display:flex;flex-direction:column;justify-content:flex-end;
+    padding:clamp(1.6rem,5vw,4rem);
   }
+  .panel + .panel{border-top:1px solid rgba(247,240,230,.14);}
+  .panel::before{
+    content:'';position:absolute;inset:0;
+    background:linear-gradient(180deg,rgba(18,12,7,.15) 0%,rgba(18,12,7,.05) 42%,rgba(18,12,7,.82) 100%);
+  }
+  .panel > *{position:relative;z-index:1;}
+  .panel .kicker{align-self:flex-start;}
+  .panel h1,.panel h2{
+    color:var(--white);font-size:clamp(2.2rem,6vw,4.6rem);font-weight:600;max-width:15ch;
+    text-shadow:0 2px 26px rgba(18,12,7,.55);
+  }
+  .panel-num{
+    position:absolute;top:clamp(1.2rem,3.5vw,2.6rem);right:clamp(1.2rem,3.5vw,2.6rem);z-index:1;
+    font-family:var(--font-display);font-weight:700;font-size:clamp(2.6rem,7vw,5rem);
+    color:transparent;-webkit-text-stroke:1px rgba(245,168,92,.6);line-height:1;
+  }
+  .strelica{
+    position:absolute;left:50%;bottom:1.3rem;transform:translateX(-50%);z-index:2;
+    color:rgba(255,255,255,.8);font-size:1.35rem;text-decoration:none;
+    animation:skok 2s ease-in-out infinite;
+  }
+  @keyframes skok{0%,100%{transform:translate(-50%,0);}50%{transform:translate(-50%,8px);}}
+  @media (prefers-reduced-motion:reduce){.strelica{animation:none;}}
+  @media (max-width:860px){.strelica{display:none;}}
 </style>
 </head>
 <body>
 
+<!-- POZADINA — isti blok ide na svaku stranicu -->
+<div class="pozadina" aria-hidden="true"></div>
+
 <header>
-  <!-- UREDI: zamijeni s putanjom do tvog vektoriziranog loga -->
+  <!-- UREDI: zamijeni s putanjom do tvog loga -->
   <a class="brand" href="index.html">
-    <img src="https://placehold.co/88x88/131110/C9954F?text=K" alt="NAZIV_FIRME logo">
+    <img src="img/logo.svg" alt="NAZIV_FIRME logo">
     <span class="brand-name">NAZIV_FIRME</span>
   </a>
 
   <details class="menu">
     <summary aria-label="Otvori izbornik"><span class="burger"><i></i><i></i><i></i></span></summary>
     <nav aria-label="Glavna navigacija">
-      <!-- UREDI: za WordPress promijeni linkove u /o-nama/, /projekti/, /galerija/, /kontakt/ -->
+      <!-- UREDI: za WordPress promijeni u /o-nama/, /projekti/, /galerija/, /kontakt/ -->
       <ul>
         <li><a href="onama.html">O nama</a></li>
         <li><a href="projekti.html">Projekti</a></li>
@@ -211,52 +234,45 @@
   </details>
 
   <!-- HR/EN/DE vode na zasebne stranice po jeziku -->
-  <div class="lang-switch">
+  <div class="lang">
     <a href="index.html" class="lang-btn active">HR</a>
     <a href="/en/" class="lang-btn">EN</a>
     <a href="/de/" class="lang-btn">DE</a>
   </div>
 </header>
 
-<!-- TRI SLIKE - jedna za drugom, prirodno se pojavljuju kako korisnik skrola -->
-<div class="scroll-frame">
+<main>
 
-  <!-- UREDI: zamijeni background-image url s fotografijom kuhinje -->
-  <section class="scroll-img" id="panel-1" style="background-image:url('https://placehold.co/1600x900/2E2019/EADFC8?text=Fotografija+kuhinje')">
+  <!-- UREDI: zamijeni sliku svojom fotografijom kuhinje -->
+  <section class="panel" id="slika-1" style="background-image:url('img/foto-1-v.svg')">
     <span class="panel-num">01</span>
-    <div class="scroll-overlay">
-      <span class="kicker">Stolarski radovi &middot; po mjeri</span>
-      <h1><strong>Izrada kuhinja po mjeri</strong></h1>
-    </div>
-    <a class="scroll-hint" href="#panel-2" aria-label="Skrolaj dolje">&#8595;</a>
+    <span class="kicker">Stolarski radovi &middot; po mjeri</span>
+    <h1><strong>Izrada kuhinja po mjeri</strong></h1>
+    <a class="strelica" href="#slika-2" aria-label="Skrolaj dolje">&#8595;</a>
   </section>
 
-  <!-- UREDI: zamijeni s fotografijom nacrta / mjerenja -->
-  <section class="scroll-img" id="panel-2" style="background-image:url('https://placehold.co/1600x900/9A968E/131110?text=Nacrt+i+mjere')">
+  <!-- UREDI: zamijeni fotografijom nacrta / mjerenja -->
+  <section class="panel" id="slika-2" style="background-image:url('img/foto-2-v.svg')">
     <span class="panel-num">02</span>
-    <div class="scroll-overlay">
-      <span class="kicker">Precizno planiranje</span>
-      <h2>Mjerimo dva puta, crtamo jedanput</h2>
-    </div>
+    <span class="kicker">Precizno planiranje</span>
+    <h2>Mjerimo dva puta, crtamo jedanput</h2>
   </section>
 
-  <!-- UREDI: zamijeni s fotografijom ugradbenog ormara -->
-  <section class="scroll-img" id="panel-3" style="background-image:url('https://placehold.co/1600x900/131110/EADFC8?text=Ugradbeni+ormar')">
+  <!-- UREDI: zamijeni fotografijom ugradbenog ormara -->
+  <section class="panel" id="slika-3" style="background-image:url('img/foto-3-v.svg')">
     <span class="panel-num">03</span>
-    <div class="scroll-overlay">
-      <span class="kicker">Pametna rje&scaron;enja</span>
-      <h2>Radimo prostor tamo di ga je malo</h2>
-    </div>
+    <span class="kicker">Pametna rje&scaron;enja</span>
+    <h2>Radimo prostor tamo di ga je malo</h2>
   </section>
 
-</div>
+</main>
 
 <footer>
   <div class="footer-inner">
 
     <div class="footer-col footer-brand">
       <div class="brand">
-        <img src="https://placehold.co/60x60/131110/C9954F?text=K" alt="NAZIV_FIRME logo" style="width:38px;height:38px;border-radius:9px;">
+        <img src="img/logo.svg" alt="NAZIV_FIRME logo" style="width:38px;height:38px;border-radius:10px;">
         <span class="brand-name">NAZIV_FIRME</span>
       </div>
       <p class="footer-about">Radimo namještaj, ormare i <strong>kuhinje po mjeri</strong>, prema Vašim željama.</p>
@@ -264,13 +280,13 @@
 
     <div class="footer-col">
       <span class="footer-label">Kontakt</span>
-      <!-- UREDI: mail i telefon (bez linkova, po dogovoru) -->
+      <!-- UREDI: mail i telefon -->
       <p>EMAIL_ZA_KONTAKT</p>
       <p>+385 00 000 0000</p>
       <div>
-        <a href="kontakt.html" class="footer-btn filled">Pošaljite upit</a>
+        <a href="kontakt.html" class="btn">Pošaljite upit</a>
         <!-- UREDI: link na tvoju Facebook stranicu -->
-        <a href="FACEBOOK_LINK" class="footer-btn">Facebook</a>
+        <a href="FACEBOOK_LINK" class="btn btn--linija">Facebook</a>
       </div>
     </div>
 

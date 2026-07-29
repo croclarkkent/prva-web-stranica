@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1000" viewBox="0 0 1600 1000" preserveAspectRatio="xMidYMid slice">
+<defs>
+<linearGradient id="vig" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#000000" stop-opacity="0.22"/>
+<stop offset="0.45" stop-color="#000000" stop-opacity="0.02"/>
+<stop offset="1" stop-color="#000000" stop-opacity="0.34"/>
+</linearGradient>
+</defs>
+<rect width="1600" height="1000" fill="#2A1B10"/>
+<polygon points="0,0 540,0 250,1000 0,1000" fill="#33210F"/>
+<polygon points="540,0 1010,0 830,1000 250,1000" fill="#3C2716"/>
+<polygon points="1010,0 1600,0 1600,1000 830,1000" fill="#26170D"/>
+<polygon points="0,290 400,170 320,560 0,650" fill="#A97C50" opacity="0.08"/>
+<polygon points="1140,500 1600,360 1600,830 1270,910" fill="#A97C50" opacity="0.06"/>
+<polygon points="620,620 1000,540 940,1000 560,1000" fill="#A97C50" opacity="0.05"/>
+<polygon points="880,0 934,0 606,1000 552,1000" fill="#E2661A" opacity="0.13"/>
+<polygon points="1292,0 1312,0 1058,1000 1038,1000" fill="#F5A85C" opacity="0.08"/>
+<polygon points="188,0 202,0 -66,1000 -80,1000" fill="#F5A85C" opacity="0.06"/>
+<polygon points="0,760 300,690 250,1000 0,1000" fill="#1E1209" opacity="0.55"/>
+<polygon points="1380,60 1600,0 1600,190 1330,250" fill="#1E1209" opacity="0.45"/>
+<rect width="1600" height="1000" fill="url(#vig)"/>
+</svg>
