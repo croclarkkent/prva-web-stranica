@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="hr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Projekti | NAZIV_FIRME</title>
+<meta name="description" content="Pregled projekata izrade i montaže kuhinja po mjeri - NAZIV_FIRME.">
+<meta name="keywords" content="izrada kuhinja po mjeri, montaža kuhinja, stolarski radovi, kuhinje po mjeri">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Instrument+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap');
+
+  /* ============ DIZajn SUSTAV ============ */
+  :root{
+    --coal:#131110;
+    --coal-soft:#1C1916;
+    --paper:#F4F0E6;
+    --paper-deep:#EAE4D4;
+    --brass:#C9954F;
+    --brass-bright:#E5B472;
+    --ink:#23201B;
+    --line:rgba(19,17,16,.14);
+    --line-light:rgba(244,240,230,.16);
+    --radius:20px;
+    --font-display:'Space Grotesk','Segoe UI',sans-serif;
+    --font-body:'Instrument Sans',-apple-system,'Segoe UI',sans-serif;
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;font-family:var(--font-body);color:var(--ink);line-height:1.65;
+    background:var(--paper);
+    -webkit-font-smoothing:antialiased;
+  }
+  img{max-width:100%;}
+  a{color:inherit;}
+  ::selection{background:var(--brass);color:var(--coal);}
+
+  h1,h2,h3{font-family:var(--font-display);margin:0;line-height:1.08;letter-spacing:-.02em;color:var(--coal);}
+
+  .kicker{
+    display:inline-flex;align-items:center;gap:.6rem;
+    font-family:var(--font-display);font-size:.72rem;font-weight:600;
+    text-transform:uppercase;letter-spacing:.28em;color:var(--brass);
+  }
+  .kicker::before{content:'';width:34px;height:1px;background:var(--brass);display:inline-block;}
+
+  /* ============ ZAGLAVLJE (isto kao naslovna) ============ */
+  header{
+    position:sticky;top:0;z-index:100;
+    display:grid;grid-template-columns:1fr auto 1fr;align-items:center;
+    padding:.9rem 2rem;
+    background:rgba(19,17,16,.82);
+    -webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);
+    border-bottom:1px solid var(--line-light);
+  }
+  .brand{display:flex;align-items:center;gap:.8rem;justify-self:start;text-decoration:none;}
+  .brand img{width:42px;height:42px;border-radius:10px;display:block;}
+  .brand-name{
+    font-family:var(--font-display);font-weight:600;font-size:1.15rem;
+    letter-spacing:.01em;color:#fff;
+  }
+  .nav-toggle{position:absolute;opacity:0;pointer-events:none;}
+  .main-nav{justify-self:center;}
+  .nav-burger{display:none;}
+  .main-nav ul{display:flex;gap:2.2rem;list-style:none;margin:0;padding:0;}
+  .main-nav a{
+    position:relative;color:#fff;text-decoration:none;font-weight:500;font-size:.92rem;
+    padding:.35rem 0;letter-spacing:.02em;
+  }
+  .main-nav a::after{
+    content:'';position:absolute;left:0;bottom:0;height:2px;width:100%;
+    background:var(--brass);transform:scaleX(0);transform-origin:left;
+    transition:transform .3s ease;
+  }
+  .main-nav a:hover::after,.main-nav a[aria-current="page"]::after{transform:scaleX(1);}
+  .main-nav a[aria-current="page"]{color:var(--brass-bright);}
+
+  .lang-switch{
+    justify-self:end;display:flex;gap:.25rem;
+    border:1px solid var(--line-light);border-radius:999px;padding:.22rem;
+  }
+  .lang-btn{
+    font-family:var(--font-display);font-size:.72rem;font-weight:600;letter-spacing:.08em;
+    padding:.32rem .7rem;border-radius:999px;text-decoration:none;color:rgba(255,255,255,.75);
+    transition:color .2s,background .2s;
+  }
+  .lang-btn:hover{color:var(--brass-bright);}
+  .lang-btn.active{background:var(--brass);color:var(--coal);}
+
+  @media (max-width:860px){
+    header{padding:.8rem 1rem;grid-template-columns:auto 1fr auto;gap:.75rem;}
+    .brand{order:2;justify-self:center;}
+    .brand-name{font-size:1rem;}
+    .main-nav{order:1;justify-self:start;}
+    .lang-switch{order:3;}
+    .nav-burger{display:flex;flex-direction:column;gap:5px;cursor:pointer;padding:.55rem .4rem;}
+    .nav-burger span{width:24px;height:2px;background:#fff;transition:transform .3s,opacity .3s;}
+    .nav-toggle:checked ~ .main-nav .nav-burger span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+    .nav-toggle:checked ~ .main-nav .nav-burger span:nth-child(2){opacity:0;}
+    .nav-toggle:checked ~ .main-nav .nav-burger span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+    .main-nav ul{
+      display:none;position:absolute;top:100%;left:0;right:0;
+      flex-direction:column;gap:0;background:var(--coal);
+      border-bottom:1px solid var(--line-light);padding:.5rem 0;
+    }
+    .nav-toggle:checked ~ .main-nav ul{display:flex;}
+    .main-nav ul li{text-align:center;}
+    .main-nav ul a{display:block;padding:.9rem 1rem;font-size:1rem;}
+    .lang-btn{padding:.28rem .55rem;font-size:.66rem;}
+  }
+
+  /* ============ SADRŽAJ: PROJEKTI ============ */
+  .projects-page{padding:clamp(3rem,7vw,5.5rem) 2rem;max-width:1150px;margin:0 auto;}
+  .projects-page .kicker{margin-bottom:1.1rem;}
+  .projects-page > h1{font-size:clamp(2.4rem,6vw,4rem);margin-bottom:.9rem;}
+  .projects-page > p.intro{max-width:640px;opacity:.8;margin:0 0 3rem;}
+
+  .project-box{
+    display:flex;border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;
+    margin-bottom:2.5rem;min-height:380px;background:#FDFBF6;
+    transition:box-shadow .3s ease,transform .3s ease;
+  }
+  .project-box:hover{box-shadow:0 24px 60px -30px rgba(19,17,16,.35);transform:translateY(-2px);}
+  .project-text{flex:1;padding:clamp(1.6rem,3.5vw,2.8rem);display:flex;flex-direction:column;justify-content:center;}
+  .project-num{
+    font-family:var(--font-display);font-weight:700;font-size:.8rem;
+    letter-spacing:.24em;color:var(--brass);margin-bottom:1rem;
+  }
+  .project-text h2{font-size:clamp(1.35rem,2.4vw,1.8rem);margin-bottom:.9rem;}
+  .project-text p{opacity:.8;font-size:.98rem;margin:0;}
+
+  .project-images-wrap{
+    flex:1;display:flex;flex-direction:column;
+    background:var(--coal);padding:10px;gap:10px;
+  }
+  .prije-poslije-label{
+    display:grid;grid-template-columns:1fr auto 1fr;align-items:center;
+    font-family:var(--font-display);font-weight:600;color:var(--paper);text-align:center;
+    padding:.35rem 0;
+  }
+  .prije-poslije-label span:first-child,.prije-poslije-label span:last-child{
+    font-size:clamp(.95rem,1.8vw,1.25rem);text-transform:uppercase;letter-spacing:.18em;
+  }
+  .prije-poslije-label .slash{font-size:1.2rem;color:var(--brass);padding:0 .6rem;}
+
+  .project-images{
+    flex:1;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:10px;
+  }
+  .project-images a{display:block;overflow:hidden;border-radius:10px;}
+  .project-images img{
+    width:100%;height:100%;object-fit:cover;display:block;
+    transition:transform .45s ease,filter .45s ease;
+  }
+  .project-images a:hover img{transform:scale(1.07);filter:brightness(1.08);}
+
+  @media (max-width:760px){
+    .project-box{flex-direction:column;}
+    .project-images{grid-template-columns:1fr 1fr;}
+    .project-images img{aspect-ratio:1/1;}
+  }
+
+  /* ============ LIGHTBOX (klik na sliku = povećanje, bez JS-a) ============ */
+  .lightbox{
+    display:none;position:fixed;inset:0;background:rgba(10,9,8,.92);
+    z-index:1000;align-items:center;justify-content:center;padding:2rem;
+  }
+  .lightbox:target{display:flex;}
+  .lightbox img{max-width:100%;max-height:100%;border-radius:12px;display:block;}
+  .lightbox-close{
+    position:absolute;top:1.3rem;right:1.6rem;color:#fff;font-size:2rem;
+    text-decoration:none;line-height:1;width:48px;height:48px;
+    display:flex;align-items:center;justify-content:center;
+    border:1px solid var(--line-light);border-radius:999px;transition:all .25s;
+  }
+  .lightbox-close:hover{border-color:var(--brass);color:var(--brass-bright);}
+
+  /* ============ FOOTER (isto kao naslovna) ============ */
+  footer{
+    background:var(--coal);color:var(--paper);
+    padding:4rem 2rem 1.5rem;border-top:1px solid var(--line-light);
+  }
+  .footer-inner{
+    display:flex;justify-content:space-between;gap:3rem;flex-wrap:wrap;
+    max-width:1200px;margin:0 auto;
+  }
+  .footer-col{flex:1;min-width:230px;font-size:.9rem;}
+  .footer-col p{margin:.3rem 0;opacity:.85;}
+  .footer-brand .brand-name{font-size:1.05rem;}
+  .footer-about{margin-top:.9rem;max-width:280px;opacity:.65;line-height:1.6;}
+  .footer-label{
+    font-family:var(--font-display);font-size:.68rem;font-weight:600;text-transform:uppercase;
+    letter-spacing:.26em;color:var(--brass);display:block;margin-bottom:.9rem;
+  }
+  .footer-btn{
+    display:inline-block;margin-top:.8rem;margin-right:.5rem;
+    font-family:var(--font-display);font-size:.72rem;font-weight:600;
+    text-transform:uppercase;letter-spacing:.12em;
+    border:1px solid var(--line-light);padding:.6rem 1.2rem;border-radius:999px;
+    text-decoration:none;color:var(--paper);transition:all .25s;
+  }
+  .footer-btn:hover{border-color:var(--brass);color:var(--brass-bright);}
+  .footer-btn.filled{background:var(--brass);border-color:var(--brass);color:var(--coal);}
+  .footer-btn.filled:hover{background:var(--brass-bright);border-color:var(--brass-bright);color:var(--coal);}
+  .footer-bottom{
+    border-top:1px solid var(--line-light);margin-top:3rem;padding-top:1.4rem;
+    text-align:center;font-size:.72rem;opacity:.45;
+    max-width:1200px;margin-left:auto;margin-right:auto;letter-spacing:.06em;
+  }
+  @media (max-width:720px){
+    .footer-inner{gap:2.2rem;}
+    .footer-col{min-width:100%;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <a class="brand" href="index.html">
+    <img src="https://placehold.co/88x88/131110/C9954F?text=K" alt="NAZIV_FIRME logo">
+    <span class="brand-name">NAZIV_FIRME</span>
+  </a>
+
+  <input type="checkbox" id="nav-toggle" class="nav-toggle">
+  <nav class="main-nav" aria-label="Glavna navigacija">
+    <label for="nav-toggle" class="nav-burger" aria-label="Otvori meni">
+      <span></span><span></span><span></span>
+    </label>
+    <ul>
+      <li><a href="onama.html">O nama</a></li>
+      <li><a href="projekti.html" aria-current="page">Projekti</a></li>
+      <li><a href="galerija.html">Galerija fotografija</a></li>
+      <li><a href="kontakt.html">Kontakt</a></li>
+    </ul>
+  </nav>
+
+  <div class="lang-switch">
+    <a href="index.html" class="lang-btn active">HR</a>
+    <a href="/en/" class="lang-btn">EN</a>
+    <a href="/de/" class="lang-btn">DE</a>
+  </div>
+</header>
+
+<main class="projects-page">
+  <span class="kicker">Prije / Poslije montaže</span>
+  <h1>Naši projekti</h1>
+  <p class="intro">Pregled realizacija <strong>izrade i montaže kuhinja po mjeri</strong>. Kliknite na fotografiju za veći prikaz.</p>
+
+  <!-- PROJEKT 1 -->
+  <div class="project-box">
+    <div class="project-text">
+      <span class="project-num">PROJEKT — 01</span>
+      <h2>Moderna kuhinja u mat bijeloj boji</h2>
+      <p>[Ovdje dodaj kratak opis projekta - materijali, dimenzije, posebnosti izrade.]</p>
+    </div>
+    <div class="project-images-wrap">
+      <div class="prije-poslije-label"><span>Prije</span><span class="slash">/</span><span>Poslije</span></div>
+      <div class="project-images">
+        <a href="#p1-1"><img src="https://placehold.co/300x300/2E2019/F4F0E6?text=1" alt="Moderna kuhinja po mjeri u bijeloj boji - prije montaže kuhinje"></a>
+        <a href="#p1-2"><img src="https://placehold.co/300x300/131110/F4F0E6?text=2" alt="Moderna kuhinja po mjeri u bijeloj boji - poslije montaže kuhinje"></a>
+        <a href="#p1-3"><img src="https://placehold.co/300x300/C9954F/131110?text=3" alt="Moderna kuhinja u bijeloj boji - detalj izrade kuhinje po mjeri"></a>
+        <a href="#p1-4"><img src="https://placehold.co/300x300/9A968E/131110?text=4" alt="Moderna kuhinja u bijeloj boji - stolarski radovi, detalj 4"></a>
+      </div>
+    </div>
+  </div>
+
+  <!-- PROJEKT 2 -->
+  <div class="project-box">
+    <div class="project-text">
+      <span class="project-num">PROJEKT — 02</span>
+      <h2>Kuhinja u industrijskom stilu</h2>
+      <p>[Ovdje dodaj kratak opis projekta - materijali, dimenzije, posebnosti izrade.]</p>
+    </div>
+    <div class="project-images-wrap">
+      <div class="prije-poslije-label"><span>Prije</span><span class="slash">/</span><span>Poslije</span></div>
+      <div class="project-images">
+        <a href="#p2-1"><img src="https://placehold.co/300x300/2E2019/F4F0E6?text=1" alt="Kuhinja u industrijskom stilu - prije montaže kuhinje"></a>
+        <a href="#p2-2"><img src="https://placehold.co/300x300/131110/F4F0E6?text=2" alt="Kuhinja u industrijskom stilu - poslije montaže kuhinje po mjeri"></a>
+        <a href="#p2-3"><img src="https://placehold.co/300x300/C9954F/131110?text=3" alt="Kuhinja u industrijskom stilu - detalj izrade kuhinje po mjeri"></a>
+        <a href="#p2-4"><img src="https://placehold.co/300x300/9A968E/131110?text=4" alt="Kuhinja u industrijskom stilu - stolarski radovi, detalj 4"></a>
+      </div>
+    </div>
+  </div>
+
+  <!-- PROJEKT 3 -->
+  <div class="project-box">
+    <div class="project-text">
+      <span class="project-num">PROJEKT — 03</span>
+      <h2>Klasična kuhinja u drvu</h2>
+      <p>[Ovdje dodaj kratak opis projekta - materijali, dimenzije, posebnosti izrade.]</p>
+    </div>
+    <div class="project-images-wrap">
+      <div class="prije-poslije-label"><span>Prije</span><span class="slash">/</span><span>Poslije</span></div>
+      <div class="project-images">
+        <a href="#p3-1"><img src="https://placehold.co/300x300/2E2019/F4F0E6?text=1" alt="Klasična drvena kuhinja po mjeri - prije montaže kuhinje"></a>
+        <a href="#p3-2"><img src="https://placehold.co/300x300/131110/F4F0E6?text=2" alt="Klasična drvena kuhinja po mjeri - poslije montaže kuhinje"></a>
+        <a href="#p3-3"><img src="https://placehold.co/300x300/C9954F/131110?text=3" alt="Klasična kuhinja u drvu - detalj izrade kuhinje po mjeri"></a>
+        <a href="#p3-4"><img src="https://placehold.co/300x300/9A968E/131110?text=4" alt="Klasična kuhinja u drvu - stolarski radovi, detalj 4"></a>
+      </div>
+    </div>
+  </div>
+
+  <!-- PROJEKT 4 -->
+  <div class="project-box">
+    <div class="project-text">
+      <span class="project-num">PROJEKT — 04</span>
+      <h2>Kuhinja s otokom u kombinaciji drva i bijele boje</h2>
+      <p>[Ovdje dodaj kratak opis projekta - materijali, dimenzije, posebnosti izrade.]</p>
+    </div>
+    <div class="project-images-wrap">
+      <div class="prije-poslije-label"><span>Prije</span><span class="slash">/</span><span>Poslije</span></div>
+      <div class="project-images">
+        <a href="#p4-1"><img src="https://placehold.co/300x300/2E2019/F4F0E6?text=1" alt="Kuhinja s otokom po mjeri - prije montaže kuhinje"></a>
+        <a href="#p4-2"><img src="https://placehold.co/300x300/131110/F4F0E6?text=2" alt="Kuhinja s otokom po mjeri - poslije montaže kuhinje"></a>
+        <a href="#p4-3"><img src="https://placehold.co/300x300/C9954F/131110?text=3" alt="Kuhinja s otokom - detalj izrade kuhinje po mjeri"></a>
+        <a href="#p4-4"><img src="https://placehold.co/300x300/9A968E/131110?text=4" alt="Kuhinja s otokom - stolarski radovi, detalj 4"></a>
+      </div>
+    </div>
+  </div>
+</main>
+
+<!-- LIGHTBOX PRIKAZI - povećana slika kad se klikne na thumbnail -->
+<div id="p1-1" class="lightbox"><a href="#" class="lightbox-close">&times;</a><img src="https://placehold.co/1400x1000/2E2019/F4F0E6?text=Moderna+kuhinja+1" alt="Moderna kuhinja u bijeloj boji - uvećano 1"></div>
+<div id="p1-2" class="lightbox"><a href="#" class="lightbox-close">&times;</a><img src="https://placehold.co/1400x1000/131110/F4F0E6?text=Moderna+kuhinja+2" alt="Moderna kuhinja u bijeloj boji - uvećano 2"></div>
+<div id="p1-3" class="lightbox"><a href="#" class="lightbox-close">&times;</a><img src="https://placehold.co/1400x1000/C9954F/131110?text=Moderna+kuhinja+3" alt="Moderna kuhinja u bijeloj boji - uvećano 3"></div>
+<div id="p1-4" class="lightbox"><a href="#" class="lightbox-close">&times;</a><img src="https://placehold.co/1400x1000/9A968E/131110?text=Moderna+kuhinja+4" alt="Moderna kuhinja u bijeloj boji - uvećano 4"></div>
+
+<div id="p2-1" class="lightbox"><a href="#" class="lightbox-close">&times;</a><img src="https://placehold.co/1400x1000/2E2019/F4F0E6?text=Industrijska+kuhinja+1" alt="Kuhinja u industrijskom stilu - uvećano 1"></div>
+<div id="p2-2" class="lightbox"><a href="#" class="lightbox-close">&times;</a><img src="https://placehold.co/1400x1000/131110/F4F0E6?text=Industrijska+kuhinja+2" alt="Kuhinja u industrijskom stilu - uvećano 2"></div>
+<div id="p2-3" class="lightbox"><a href="#" class="lightbox-close">&times;</a><img src="https://placehold.co/1400x1000/C9954F/131110?text=Industrijska+kuhinja+3" alt="Kuhinja u industrijskom stilu - uvećano 3"></div>
+<div id="p2-4" class="lightbox"><a href="#" class="lightbox-close">&times;</a><img src="https://placehold.co/1400x1000/9A968E/131110?text=Industrijska+kuhinja+4" alt="Kuhinja u industrijskom stilu - uvećano 4"></div>
+
+<div id="p3-1" class="lightbox"><a href="#" class="lightbox-close">&times;</a><img src="https://placehold.co/1400x1000/2E2019/F4F0E6?text=Klasicna+kuhinja+1" alt="Klasična kuhinja u drvu - uvećano 1"></div>
+<div id="p3-2" class="lightbox"><a href="#" class="lightbox-close">&times;</a><img src="https://placehold.co/1400x1000/131110/F4F0E6?text=Klasicna+kuhinja+2" alt="Klasična kuhinja u drvu - uvećano 2"></div>
+<div id="p3-3" class="lightbox"><a href="#" class="lightbox-close">&times;</a><img src="https://placehold.co/1400x1000/C9954F/131110?text=Klasicna+kuhinja+3" alt="Klasična kuhinja u drvu - uvećano 3"></div>
+<div id="p3-4" class="lightbox"><a href="#" class="lightbox-close">&times;</a><img src="https://placehold.co/1400x1000/9A968E/131110?text=Klasicna+kuhinja+4" alt="Klasična kuhinja u drvu - uvećano 4"></div>
+
+<div id="p4-1" class="lightbox"><a href="#" class="lightbox-close">&times;</a><img src="https://placehold.co/1400x1000/2E2019/F4F0E6?text=Kuhinja+s+otokom+1" alt="Kuhinja s otokom - uvećano 1"></div>
+<div id="p4-2" class="lightbox"><a href="#" class="lightbox-close">&times;</a><img src="https://placehold.co/1400x1000/131110/F4F0E6?text=Kuhinja+s+otokom+2" alt="Kuhinja s otokom - uvećano 2"></div>
+<div id="p4-3" class="lightbox"><a href="#" class="lightbox-close">&times;</a><img src="https://placehold.co/1400x1000/C9954F/131110?text=Kuhinja+s+otokom+3" alt="Kuhinja s otokom - uvećano 3"></div>
+<div id="p4-4" class="lightbox"><a href="#" class="lightbox-close">&times;</a><img src="https://placehold.co/1400x1000/9A968E/131110?text=Kuhinja+s+otokom+4" alt="Kuhinja s otokom - uvećano 4"></div>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-col footer-brand">
+      <div class="brand">
+        <img src="https://placehold.co/60x60/131110/C9954F?text=K" alt="NAZIV_FIRME logo" style="width:38px;height:38px;border-radius:9px;">
+        <span class="brand-name">NAZIV_FIRME</span>
+      </div>
+      <p class="footer-about">Radimo namještaj, ormare i <strong>kuhinje po mjeri</strong>, prema Vašim željama.</p>
+    </div>
+
+    <div class="footer-col">
+      <span class="footer-label">Kontakt</span>
+      <p>EMAIL_ZA_KONTAKT</p>
+      <p>+385 00 000 0000</p>
+      <div>
+        <a href="kontakt.html" class="footer-btn filled">Pošaljite upit</a>
+        <a href="FACEBOOK_LINK" class="footer-btn">Facebook</a>
+      </div>
+    </div>
+
+    <div class="footer-col">
+      <span class="footer-label">Podaci o tvrtki</span>
+      <p>NAZIV_FIRME d.o.o.</p>
+      <p>SJEDIŠTE_FIRME</p>
+      <p>OIB: OIB_BROJ</p>
+    </div>
+  </div>
+  <div class="footer-bottom">&copy; 2026 NAZIV_FIRME. Sva prava pridržana.</div>
+</footer>
+
+</body>
+</html>
