@@ -1,6 +1,6 @@
 # Web stranica — izrada i montaža kuhinja po mjeri
 
-Aktualni dizajn je u **glavnoj mapi**. Starije verzije su spremljene u zasebnim mapama.
+Svih pet stranica je u glavnoj mapi. Svaka je samostalna: HTML i CSS u istoj datoteci, bez JavaScripta.
 
 ## Stranice
 
@@ -52,8 +52,3 @@ U kodu je označeno komentarom `<!-- UREDI ... -->`:
 - logo i sve fotografije
 - za WordPress: linkove u izborniku promijeniti u `/o-nama/`, `/projekti/`, `/galerija/`, `/kontakt/`
 - kontakt obrazac zamijeniti WordPressovim Form blokom (`mailto:` nije pouzdan)
-
-## Starije verzije
-
-- `verzija-1-original/` — topla paleta (crna, krem, mjed), svih pet stranica
-- `verzija-2-teren/` — pozadina "teniski teren", samo naslovnica
