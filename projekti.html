@@ -21,6 +21,21 @@
     --black:#120C07;
     --cream:#F7F0E6;          /* dodatna: polja obrasca i svijetle plohe */
 
+    /* --- ista smeđa, samo svjetlija i tamnija: to daje dubinu --- */
+    --wood-950:#160C05;       /* najdublja sjena */
+    --wood-900:#1F1208;
+    --wood-800:#2A1B10;
+    --wood-700:#3C2614;
+    --wood-600:#513218;
+    --wood-300:#C9A272;       /* odsjaj na drvu */
+    --tekst:#F2E7DA;          /* topla bijela za tekst */
+
+    /* --- svjetlo pada odozgo: gornji brid svijetli, ispod je sjena --- */
+    --brid:inset 0 1px 0 rgba(247,240,230,.16);
+    --brid-jaki:inset 0 1px 0 rgba(247,240,230,.28);
+    --sjena:0 22px 48px -22px rgba(10,6,3,.9);
+    --sjena-blaga:0 12px 28px -16px rgba(10,6,3,.75);
+
     --font-display:'Space Grotesk','Segoe UI',sans-serif;
     --font-body:'Instrument Sans',-apple-system,'Segoe UI',sans-serif;
     --wrap:1180px;
@@ -31,7 +46,7 @@
   html{scroll-behavior:smooth;}
   body{
     margin:0;font-family:var(--font-body);line-height:1.65;
-    color:var(--white);background:var(--brown-dark);
+    color:var(--tekst);background:var(--wood-900);
     -webkit-font-smoothing:antialiased;
   }
   img{max-width:100%;}
@@ -39,7 +54,7 @@
   ::selection{background:var(--orange);color:var(--white);}
   a:focus-visible,summary:focus-visible,button:focus-visible,
   input:focus-visible,textarea:focus-visible{outline:2px solid var(--orange-light);outline-offset:3px;}
-  h1,h2,h3{font-family:var(--font-display);margin:0;line-height:1.08;letter-spacing:-.02em;}
+  h1,h2,h3{font-family:var(--font-display);margin:0;line-height:1.08;letter-spacing:-.02em;color:var(--white);}
 
   /* ==================================================================
      POZADINA — kosi nepravilni oblici, ista na svim stranicama.
@@ -58,9 +73,10 @@
     position:sticky;top:0;z-index:100;
     display:grid;grid-template-columns:1fr auto 1fr;align-items:center;
     gap:1rem;padding:.75rem clamp(1rem,3vw,2.4rem);
-    background:rgba(24,15,9,.62);
+    background:rgba(22,12,5,.72);
     -webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);
-    border-bottom:1px solid rgba(247,240,230,.15);
+    border-bottom:1px solid rgba(247,240,230,.14);
+    box-shadow:var(--brid-jaki), 0 20px 34px -26px rgba(10,6,3,.95);
   }
   .brand{display:flex;align-items:center;gap:.75rem;justify-self:start;text-decoration:none;}
   .brand img{width:42px;height:42px;border-radius:11px;display:block;}
@@ -129,26 +145,30 @@
     margin-bottom:1.1rem;
   }
   .kicker::before{content:'';width:34px;height:1px;background:currentColor;display:inline-block;}
-  .naslov{font-size:clamp(2.3rem,6vw,4rem);font-weight:600;}
+  .naslov{font-size:clamp(2.3rem,6vw,4rem);font-weight:600;text-shadow:0 3px 24px rgba(10,6,3,.6);}
   .uvod{max-width:62ch;opacity:.92;margin:1.1rem 0 0;}
 
   .btn{
     display:inline-block;font-family:var(--font-display);font-size:.74rem;font-weight:700;
     text-transform:uppercase;letter-spacing:.12em;
     padding:.85rem 1.6rem;border-radius:999px;text-decoration:none;
-    background:var(--orange);color:var(--white);border:1px solid var(--orange);
-    transition:background .25s,border-color .25s,transform .2s;
+    background:linear-gradient(180deg,var(--orange-light) 0%,var(--orange) 100%);
+    color:var(--black);border:1px solid var(--orange);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.42), 0 12px 24px -14px rgba(226,102,26,.9);
+    transition:filter .25s,transform .2s,box-shadow .25s;
   }
-  .btn:hover{background:var(--orange-light);border-color:var(--orange-light);color:var(--black);transform:translateY(-2px);}
-  .btn--linija{background:transparent;border-color:rgba(247,240,230,.42);color:var(--white);}
-  .btn--linija:hover{background:transparent;border-color:var(--orange-light);color:var(--orange-light);}
+  .btn:hover{filter:brightness(1.1);transform:translateY(-2px);box-shadow:inset 0 1px 0 rgba(255,255,255,.5), 0 18px 30px -14px rgba(226,102,26,1);}
+  .btn--linija{background:rgba(247,240,230,.05);border-color:rgba(247,240,230,.4);color:var(--tekst);
+    box-shadow:var(--brid), 0 10px 22px -16px rgba(10,6,3,.8);}
+  .btn--linija:hover{filter:none;background:rgba(247,240,230,.1);border-color:var(--orange-light);color:var(--orange-light);}
 
   /* ==================================================================
      PODNOŽJE — prozirno, pozadina se vidi kroz njega
      ================================================================== */
   footer{
-    border-top:1px solid rgba(247,240,230,.16);
-    background:rgba(18,12,7,.42);
+    border-top:1px solid rgba(247,240,230,.14);
+    background:rgba(22,12,5,.55);
+    box-shadow:var(--brid);
     color:var(--white);
     padding:3.5rem clamp(1rem,4vw,2rem) 1.5rem;
   }
@@ -177,8 +197,9 @@
      ================================================================== */
   .projekt{
     display:grid;grid-template-columns:1fr 1fr;gap:0;
-    border:1px solid rgba(247,240,230,.16);border-radius:var(--radius);
-    overflow:hidden;margin-top:2rem;background:rgba(18,12,7,.34);
+    border:1px solid rgba(247,240,230,.13);border-radius:var(--radius);
+    overflow:hidden;margin-top:2rem;background:rgba(31,18,8,.62);
+    box-shadow:var(--brid), var(--sjena);
   }
   .projekt-tekst{padding:clamp(1.5rem,3.5vw,2.6rem);display:flex;flex-direction:column;justify-content:center;}
   .projekt-broj{
@@ -188,7 +209,7 @@
   .projekt-tekst h2{font-size:clamp(1.3rem,2.4vw,1.75rem);margin-bottom:.9rem;}
   .projekt-tekst p{margin:0;opacity:.85;font-size:.98rem;}
 
-  .projekt-slike{background:rgba(18,12,7,.5);padding:12px;display:flex;flex-direction:column;gap:12px;}
+  .projekt-slike{background:var(--wood-950);padding:12px;display:flex;flex-direction:column;gap:12px;box-shadow:inset 0 2px 10px rgba(10,6,3,.85);}
   .pp-oznaka{
     display:grid;grid-template-columns:1fr auto 1fr;align-items:center;text-align:center;
     font-family:var(--font-display);font-weight:600;padding:.3rem 0;
@@ -198,7 +219,7 @@
   }
   .pp-oznaka .kosa{color:var(--orange);font-size:1.15rem;padding:0 .6rem;}
   .pp-par{display:grid;grid-template-columns:1fr 1fr;gap:12px;flex:1;}
-  .pp-par a{display:block;overflow:hidden;border-radius:10px;position:relative;}
+  .pp-par a{display:block;overflow:hidden;border-radius:10px;position:relative;box-shadow:var(--brid), 0 10px 22px -14px rgba(10,6,3,.9);}
   .pp-par img{width:100%;height:100%;min-height:150px;object-fit:cover;display:block;transition:transform .45s ease;}
   .pp-par a:hover img{transform:scale(1.06);}
 
