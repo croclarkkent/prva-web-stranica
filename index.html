@@ -132,17 +132,27 @@
   .scene__media{position:absolute;inset:0;z-index:0;background-size:cover;background-position:center;}
   @media (prefers-reduced-motion:no-preference){ .scene__media{animation:zoom 18s ease-out both;} }
 
-  /* plava mreža nacrta u gornjem-desnom kutu */
-  .scene__grid{position:absolute;inset:0;z-index:1;pointer-events:none;opacity:.16;
+  /* milimetarski papir — fina plava mreža preko cijele slike */
+  .scene__grid{position:absolute;inset:0;z-index:1;pointer-events:none;opacity:.06;
     background-image:linear-gradient(var(--plava) 1px,transparent 1px),
                      linear-gradient(90deg,var(--plava) 1px,transparent 1px);
-    background-size:46px 46px;
-    -webkit-mask:radial-gradient(125% 95% at 100% 0%, #000 0%, transparent 58%);
-            mask:radial-gradient(125% 95% at 100% 0%, #000 0%, transparent 58%);}
+    background-size:40px 40px;}
   .scene__scrim{position:absolute;inset:0;z-index:1;
-    background:linear-gradient(180deg,rgba(19,11,6,0) 30%,rgba(19,11,6,.5) 68%,rgba(19,11,6,.93) 100%),
+    background:linear-gradient(180deg,rgba(19,11,6,.22) 0%,rgba(19,11,6,.32) 40%,rgba(19,11,6,.6) 72%,rgba(19,11,6,.94) 100%),
                linear-gradient(90deg,rgba(19,11,6,.55) 0%,rgba(19,11,6,0) 42%);}
-  .scene > *{position:relative;z-index:2;}
+
+  /* NACRT — fragmenti (kote, ravnala, vodilice, ormari) u kosoj projekciji.
+     Razbacani preko slike; maska ih stanji tamo gdje je tekst (dolje-lijevo). */
+  .scene__nacrt{position:absolute;inset:0;z-index:1;pointer-events:none;opacity:.9;
+    background:url('img/nacrt.svg') center/cover no-repeat;
+    -webkit-mask:radial-gradient(115% 105% at 4% 112%, transparent 0%, transparent 26%, #fff 54%);
+            mask:radial-gradient(115% 105% at 4% 112%, transparent 0%, transparent 26%, #fff 54%);}
+  .scene.n1 .scene__nacrt{background-position:right -30px top -20px;}
+  .scene.n2 .scene__nacrt{background-position:left -60px center;background-size:125% auto;}
+  .scene.n3 .scene__nacrt{background-position:right -100px bottom -40px;background-size:120% auto;}
+
+  .scene > .eyebrow,.scene > .crtalinija,.scene > h1,.scene > h2,
+  .scene > .spec,.scene > .rail,.scene > .coord,.scene > .cue{position:relative;z-index:2;}
 
   /* lijeva vertikalna crta + rotirani natpis */
   .rail{position:absolute;left:clamp(1rem,3vw,2.2rem);top:0;bottom:0;z-index:2;
@@ -258,11 +268,12 @@
 <main>
 
   <!-- SLIKA 1 -->
-  <section class="scene" id="slika-1">
+  <section class="scene n1" id="slika-1">
     <!-- UREDI: zamijeni sliku svojom fotografijom kuhinje -->
     <div class="scene__media" style="background-image:url('img/foto-1-v.svg')"></div>
     <div class="scene__grid"></div>
     <div class="scene__scrim"></div>
+    <div class="scene__nacrt"></div>
     <div class="rail"><span>Atelier &middot; po mjeri</span></div>
     <div class="coord"><b>01</b><i>/ 03</i></div>
 
@@ -275,11 +286,12 @@
   </section>
 
   <!-- SLIKA 2 -->
-  <section class="scene" id="slika-2">
+  <section class="scene n2" id="slika-2">
     <!-- UREDI: zamijeni s fotografijom nacrta / mjerenja -->
     <div class="scene__media" style="background-image:url('img/foto-2-v.svg')"></div>
     <div class="scene__grid"></div>
     <div class="scene__scrim"></div>
+    <div class="scene__nacrt"></div>
     <div class="rail"><span>Precizno planiranje</span></div>
     <div class="coord"><b>02</b><i>/ 03</i></div>
 
@@ -290,11 +302,12 @@
   </section>
 
   <!-- SLIKA 3 -->
-  <section class="scene" id="slika-3">
+  <section class="scene n3" id="slika-3">
     <!-- UREDI: zamijeni s fotografijom ugradbenog ormara -->
     <div class="scene__media" style="background-image:url('img/foto-3-v.svg')"></div>
     <div class="scene__grid"></div>
     <div class="scene__scrim"></div>
+    <div class="scene__nacrt"></div>
     <div class="rail"><span>Pametna rje&scaron;enja</span></div>
     <div class="coord"><b>03</b><i>/ 03</i></div>
 
