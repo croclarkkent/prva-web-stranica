@@ -154,15 +154,6 @@
   .scene > .eyebrow,.scene > .crtalinija,.scene > h1,.scene > h2,
   .scene > .spec,.scene > .rail,.scene > .coord,.scene > .cue{position:relative;z-index:2;}
 
-  /* lijeva vertikalna crta + rotirani natpis */
-  .rail{position:absolute;left:clamp(1rem,3vw,2.2rem);top:0;bottom:0;z-index:2;
-    display:flex;align-items:center;justify-content:center;width:1px;background:var(--hair-jaka);}
-  .rail span{position:absolute;transform:rotate(180deg);writing-mode:vertical-rl;
-    font-family:var(--font-display);font-size:.66rem;font-weight:600;letter-spacing:.34em;
-    text-transform:uppercase;color:var(--plava);white-space:nowrap;
-    background:var(--espresso);padding:.8rem 0;}
-  @media (max-width:860px){ .rail{display:none;} }
-
   /* koordinatni indeks gore-desno */
   .coord{position:absolute;top:clamp(1.3rem,4vw,2.8rem);right:clamp(1.3rem,4vw,2.8rem);z-index:2;
     text-align:right;font-family:var(--font-display);}
@@ -174,7 +165,10 @@
   .eyebrow{display:flex;align-items:center;gap:.75rem;
     font-family:var(--font-display);font-size:.72rem;font-weight:600;
     text-transform:uppercase;letter-spacing:.3em;color:var(--plava);margin-bottom:1.1rem;}
-  .eyebrow b{width:7px;height:7px;border-radius:50%;border:1.5px solid var(--plava);}
+  .eyebrow b{width:22px;height:22px;flex:none;border-radius:50%;
+    background:var(--plamen);box-shadow:0 0 18px -2px rgba(240,162,75,.65);
+    -webkit-mask:radial-gradient(circle at 50% 50%, transparent 42%, #000 44%);
+            mask:radial-gradient(circle at 50% 50%, transparent 42%, #000 44%);}
   .crtalinija{height:1px;width:min(360px,42vw);background:var(--plava);opacity:.6;
     transform-origin:left;margin:0 0 1.4rem;}
   @media (prefers-reduced-motion:no-preference){ .crtalinija{animation:crtaj 1s .3s both cubic-bezier(.2,.8,.2,1);} }
@@ -273,9 +267,7 @@
     <div class="scene__media" style="background-image:url('img/foto-1-v.svg')"></div>
     <div class="scene__grid"></div>
     <div class="scene__scrim"></div>
-    <div class="scene__nacrt"></div>
-    <div class="rail"><span>Atelier &middot; po mjeri</span></div>
-    <div class="coord"><b>01</b><i>/ 03</i></div>
+    <div class="scene__nacrt"></div>    <div class="coord"><b>01</b><i>/ 03</i></div>
 
     <span class="eyebrow rise"><b></b>Stolarski radovi &middot; po mjeri</span>
     <div class="crtalinija"></div>
@@ -291,9 +283,7 @@
     <div class="scene__media" style="background-image:url('img/foto-2-v.svg')"></div>
     <div class="scene__grid"></div>
     <div class="scene__scrim"></div>
-    <div class="scene__nacrt"></div>
-    <div class="rail"><span>Precizno planiranje</span></div>
-    <div class="coord"><b>02</b><i>/ 03</i></div>
+    <div class="scene__nacrt"></div>    <div class="coord"><b>02</b><i>/ 03</i></div>
 
     <span class="eyebrow rise"><b></b>Precizno planiranje</span>
     <div class="crtalinija"></div>
@@ -307,9 +297,7 @@
     <div class="scene__media" style="background-image:url('img/foto-3-v.svg')"></div>
     <div class="scene__grid"></div>
     <div class="scene__scrim"></div>
-    <div class="scene__nacrt"></div>
-    <div class="rail"><span>Pametna rje&scaron;enja</span></div>
-    <div class="coord"><b>03</b><i>/ 03</i></div>
+    <div class="scene__nacrt"></div>    <div class="coord"><b>03</b><i>/ 03</i></div>
 
     <span class="eyebrow rise"><b></b>Pametna rje&scaron;enja</span>
     <div class="crtalinija"></div>
