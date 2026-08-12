@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="hr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NAZIV_FIRME | Izrada i montaža kuhinja po mjeri</title>
+<meta name="description" content="Izrada kuhinja po mjeri i montaža kuhinja – stolarski radovi za vaš dom. Besplatno mjerenje i ponuda.">
+<meta name="keywords" content="izrada kuhinja po mjeri, montaža kuhinja, stolarski radovi, kuhinje po mjeri">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Instrument+Sans:wght@400;500;600&display=swap');
+
+  /* ==================================================================
+     BOJE — promijeni ovdje i mijenja se cijela stranica
+     ================================================================== */
+  :root{
+    --espresso:#170F09;       /* najdublja podloga (skoro crna, topla) */
+    --walnut:#241812;         /* tamno smeđa */
+    --walnut-2:#31221A;
+    --walnut-3:#3E2C20;       /* svijetlija smeđa */
+    --bone:#F3ECDF;           /* koščano svijetla */
+    --bone-dim:#CDBFA9;       /* prigušena svijetla */
+    --ember:#DA7130;          /* narančasta */
+    --ember-dark:#B85A22;     /* tamnija narančasta */
+    --honey:#F0A24B;          /* svijetlija narančasta */
+    --white:#FFFFFF;
+    --black:#120C07;
+
+    --tekst:#EFE7DA;          /* topla bijela za tekst */
+    --tekst-tih:#C3B6A4;      /* prigušeni tekst */
+    --hair:rgba(243,236,223,.14);
+    --hair-jaka:rgba(243,236,223,.24);
+
+    --font-serif:'Fraunces', Georgia, 'Times New Roman', serif;
+    --font-sans:'Instrument Sans', -apple-system, 'Segoe UI', sans-serif;
+    --wrap:1200px;
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;font-family:var(--font-sans);line-height:1.7;
+    color:var(--tekst);background:var(--espresso);
+    -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;
+  }
+  img{max-width:100%;}
+  a{color:inherit;}
+  ::selection{background:var(--ember);color:var(--white);}
+  a:focus-visible,summary:focus-visible{outline:2px solid var(--honey);outline-offset:3px;}
+  h1,h2{font-family:var(--font-serif);margin:0;font-weight:400;line-height:1.02;
+    letter-spacing:-.01em;color:var(--white);}
+
+  /* mala etiketa (small caps) */
+  .oznaka{font-family:var(--font-sans);font-size:.72rem;font-weight:500;
+    text-transform:uppercase;letter-spacing:.24em;color:var(--tekst-tih);}
+
+  /* --- pokret (isključuje se ako korisnik ne želi animacije) --- */
+  @media (prefers-reduced-motion:no-preference){
+    .rise{opacity:0;animation:rise 1s cubic-bezier(.2,.75,.2,1) both;}
+    .rise.d1{animation-delay:.12s;} .rise.d2{animation-delay:.24s;} .rise.d3{animation-delay:.36s;}
+    @keyframes rise{from{opacity:0;transform:translateY(24px);}to{opacity:1;transform:none;}}
+    @keyframes zoom{from{transform:scale(1.09);}to{transform:scale(1);}}
+  }
+
+  /* fiksna topla podloga (vidi se samo u eventualnim prazninama) */
+  .pozadina{position:fixed;inset:0;z-index:-1;background:var(--espresso);}
+
+  /* ==================================================================
+     ZAGLAVLJE
+     ================================================================== */
+  header{
+    position:sticky;top:0;z-index:100;
+    display:grid;grid-template-columns:1fr auto 1fr;align-items:center;
+    gap:1rem;padding:1rem clamp(1.1rem,3vw,2.8rem);
+    background:linear-gradient(to bottom,rgba(19,11,6,.78),rgba(19,11,6,.34));
+    -webkit-backdrop-filter:blur(14px) saturate(1.15);backdrop-filter:blur(14px) saturate(1.15);
+  }
+  .brand{display:flex;align-items:center;gap:.75rem;justify-self:start;text-decoration:none;}
+  .brand img{width:40px;height:40px;border-radius:10px;display:block;}
+  .brand-name{font-family:var(--font-serif);font-weight:500;font-size:1.4rem;
+    letter-spacing:.01em;color:var(--white);}
+
+  /* izbornik: tri paralelne crte, sve stavke unutra (bez JS-a) */
+  .menu{justify-self:center;position:relative;}
+  .menu > summary{
+    list-style:none;cursor:pointer;display:flex;align-items:center;justify-content:center;
+    width:46px;height:46px;border-radius:50%;
+    border:1px solid var(--hair-jaka);background:rgba(243,236,223,.03);
+    transition:border-color .25s,background .25s;
+  }
+  .menu > summary::-webkit-details-marker{display:none;}
+  .menu > summary:hover{border-color:var(--honey);background:rgba(240,162,75,.1);}
+  .burger{display:flex;flex-direction:column;gap:5px;}
+  .burger i{display:block;width:20px;height:1.5px;background:var(--bone);transition:transform .28s,opacity .28s;}
+  .menu[open] .burger i:nth-child(1){transform:translateY(6.5px) rotate(45deg);}
+  .menu[open] .burger i:nth-child(2){opacity:0;}
+  .menu[open] .burger i:nth-child(3){transform:translateY(-6.5px) rotate(-45deg);}
+  .menu nav{
+    position:absolute;top:calc(100% + .8rem);left:50%;transform:translateX(-50%);
+    background:linear-gradient(180deg,var(--walnut-2),var(--walnut));
+    border:1px solid var(--hair-jaka);border-radius:14px;padding:.5rem;min-width:250px;
+    box-shadow:0 26px 60px -28px rgba(8,5,2,.9);
+  }
+  .menu ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:2px;}
+  .menu nav a{
+    display:block;padding:.85rem 1.2rem;border-radius:9px;
+    color:var(--tekst);text-decoration:none;font-size:.98rem;
+    white-space:nowrap;text-align:center;transition:background .2s,color .2s;
+  }
+  .menu nav a:hover{background:rgba(240,162,75,.12);color:var(--honey);}
+
+  /* jezici HR / EN / DE */
+  .lang{justify-self:end;display:flex;gap:.1rem;align-items:center;}
+  .lang-btn{font-family:var(--font-sans);font-size:.72rem;font-weight:600;letter-spacing:.12em;
+    padding:.36rem .6rem;border-radius:6px;text-decoration:none;color:var(--tekst-tih);transition:color .2s;}
+  .lang-btn:hover{color:var(--honey);}
+  .lang-btn.active{color:var(--white);}
+  .lang-sep{width:1px;height:12px;background:var(--hair-jaka);}
+  @media (max-width:620px){ header{padding:.8rem 1rem;} .brand-name{font-size:1.1rem;} }
+  @media (max-width:470px){ .brand-name{display:none;} }
+
+  /* ==================================================================
+     HERO — tri fotografije preko cijelog ekrana
+     ================================================================== */
+  .hero{position:relative;overflow:hidden;height:100svh;min-height:600px;
+    display:flex;flex-direction:column;justify-content:flex-end;
+    padding:clamp(2rem,6vw,5.5rem) clamp(1.4rem,5vw,5rem);}
+  .hero__media{position:absolute;inset:0;z-index:0;background-size:cover;background-position:center;}
+  @media (prefers-reduced-motion:no-preference){ .hero__media{animation:zoom 20s ease-out both;} }
+  .hero__scrim{position:absolute;inset:0;z-index:1;
+    background:linear-gradient(180deg,rgba(19,11,6,.24) 0%,rgba(19,11,6,.12) 38%,rgba(19,11,6,.66) 78%,rgba(19,11,6,.92) 100%);}
+  .hero > .eyebrow,.hero > h1,.hero > h2,.hero > .lead,.hero > .scroll{position:relative;z-index:2;}
+
+  .eyebrow{display:inline-flex;align-items:center;gap:.65rem;margin-bottom:1.6rem;
+    font-family:var(--font-sans);font-size:.72rem;font-weight:500;
+    text-transform:uppercase;letter-spacing:.26em;color:var(--bone-dim);}
+  .eyebrow i{width:12px;height:12px;border-radius:50%;background:var(--ember);
+    box-shadow:0 0 0 4px rgba(218,113,48,.18);}
+
+  .hero h1,.hero h2{color:var(--white);
+    font-size:clamp(3rem,8.5vw,7rem);font-weight:400;line-height:1.0;
+    letter-spacing:-.015em;max-width:15ch;text-shadow:0 3px 40px rgba(8,5,2,.5);}
+  .hero em{font-style:italic;font-weight:400;}
+
+  .lead{max-width:46ch;margin:1.8rem 0 0;font-size:clamp(1rem,1.5vw,1.18rem);
+    color:var(--bone-dim);line-height:1.7;}
+
+  .scroll{position:absolute;left:50%;bottom:1.6rem;transform:translateX(-50%);z-index:3;
+    display:flex;flex-direction:column;align-items:center;gap:.5rem;text-decoration:none;
+    font-family:var(--font-sans);font-size:.64rem;font-weight:600;letter-spacing:.24em;
+    text-transform:uppercase;color:var(--bone-dim);}
+  .scroll span{width:1px;height:34px;background:linear-gradient(var(--bone-dim),transparent);}
+  @media (prefers-reduced-motion:no-preference){ .scroll span{animation:rasti 2s ease-in-out infinite;transform-origin:top;} }
+  @keyframes rasti{0%,100%{transform:scaleY(.5);opacity:.5;}50%{transform:scaleY(1);opacity:1;}}
+  @media (max-width:860px){ .scroll{display:none;} }
+
+  /* ==================================================================
+     PODNOŽJE — drveni uzorak (isti ide na sve stranice)
+     ================================================================== */
+  footer{
+    position:relative;color:var(--tekst);
+    background:var(--walnut) url('img/drvo.svg');
+    background-size:320px 120px;background-repeat:repeat;
+    padding:clamp(3rem,6vw,5rem) clamp(1.4rem,5vw,3rem) 1.8rem;
+    box-shadow:inset 0 1px 0 rgba(243,236,223,.1), inset 0 40px 80px -60px rgba(0,0,0,.8);
+  }
+  footer::before{content:'';position:absolute;inset:0;pointer-events:none;
+    background:radial-gradient(120% 100% at 20% 0%, rgba(240,162,75,.08), transparent 60%),
+               linear-gradient(180deg, rgba(19,11,6,.5), rgba(19,11,6,.24));}
+  footer::after{content:'';position:absolute;top:0;left:0;right:0;height:2px;
+    background:linear-gradient(90deg,transparent,var(--ember),transparent);opacity:.6;}
+  .footer-inner{position:relative;display:flex;justify-content:space-between;gap:2.6rem;flex-wrap:wrap;
+    max-width:var(--wrap);margin:0 auto;}
+  .footer-col{flex:1;min-width:225px;font-size:.92rem;}
+  .footer-col p{margin:.34rem 0;color:var(--bone-dim);}
+  .footer-brand .brand-name{display:block;font-size:1.5rem;margin-bottom:.2rem;}
+  .footer-about{margin-top:.6rem;max-width:280px;color:var(--bone-dim);line-height:1.7;}
+  .footer-about strong{color:var(--tekst);font-weight:500;}
+  .footer-label{font-family:var(--font-sans);font-size:.68rem;font-weight:600;text-transform:uppercase;
+    letter-spacing:.24em;color:var(--honey);display:block;margin-bottom:1rem;}
+  .footer-kontakt{font-family:var(--font-serif);font-size:1.15rem;color:var(--white);}
+  .footer-kontakt a{text-decoration:none;transition:color .2s;}
+  .footer-kontakt a:hover{color:var(--honey);}
+  .btn{display:inline-flex;align-items:center;gap:.6rem;font-family:var(--font-sans);
+    font-size:.72rem;font-weight:600;text-transform:uppercase;letter-spacing:.16em;
+    padding:.85rem 1.5rem;border-radius:3px;text-decoration:none;margin-top:1.2rem;margin-right:.6rem;
+    background:var(--ember);color:var(--white);border:1px solid var(--ember);
+    transition:background .25s,transform .2s,border-color .25s,color .25s;}
+  .btn:hover{background:var(--ember-dark);border-color:var(--ember-dark);transform:translateY(-2px);}
+  .btn--linija{background:transparent;color:var(--bone);border-color:var(--hair-jaka);}
+  .btn--linija:hover{background:transparent;border-color:var(--bone);color:var(--white);}
+  .footer-bottom{position:relative;border-top:1px solid var(--hair);margin-top:3rem;padding-top:1.5rem;
+    text-align:center;font-size:.72rem;color:var(--bone-dim);letter-spacing:.06em;
+    max-width:var(--wrap);margin-left:auto;margin-right:auto;}
+  @media (max-width:720px){ .footer-col{min-width:100%;} }
+</style>
+</head>
+<body>
+
+<div class="pozadina" aria-hidden="true"></div>
+
+<header>
+  <!-- UREDI: zamijeni s putanjom do tvog loga -->
+  <a class="brand" href="index.html">
+    <img src="img/logo.svg" alt="NAZIV_FIRME logo">
+    <span class="brand-name">NAZIV_FIRME</span>
+  </a>
+
+  <details class="menu">
+    <summary aria-label="Otvori izbornik"><span class="burger"><i></i><i></i><i></i></span></summary>
+    <nav aria-label="Glavna navigacija">
+      <!-- UREDI: za WordPress promijeni u /o-nama/, /projekti/, /galerija/, /kontakt/ -->
+      <ul>
+        <li><a href="onama.html">O nama</a></li>
+        <li><a href="projekti.html">Projekti</a></li>
+        <li><a href="galerija.html">Galerija fotografija</a></li>
+        <li><a href="kontakt.html">Kontakt</a></li>
+      </ul>
+    </nav>
+  </details>
+
+  <!-- HR/EN/DE vode na zasebne stranice po jeziku -->
+  <div class="lang">
+    <a href="index.html" class="lang-btn active">HR</a>
+    <span class="lang-sep"></span>
+    <a href="/en/" class="lang-btn">EN</a>
+    <span class="lang-sep"></span>
+    <a href="/de/" class="lang-btn">DE</a>
+  </div>
+</header>
+
+<main>
+
+  <!-- SLIKA 1 -->
+  <section class="hero" id="slika-1">
+    <!-- UREDI: zamijeni sliku svojom fotografijom kuhinje -->
+    <div class="hero__media" style="background-image:url('img/slika1_homepage.jpeg')"></div>
+    <div class="hero__scrim"></div>
+    <span class="eyebrow rise"><i></i>Stolarski radovi &middot; po mjeri</span>
+    <h1 class="rise d1">Izrada kuhinja<br><em>po mjeri</em></h1>
+    <p class="lead rise d2">Ru&#269;no izra&#273;ene kuhinje i stolarija, oblikovane da unesu toplinu i trajnost u svaki dom.</p>
+    <a class="scroll" href="#slika-2">Skrolaj<span></span></a>
+  </section>
+
+  <!-- SLIKA 2 -->
+  <section class="hero" id="slika-2">
+    <!-- UREDI: zamijeni s fotografijom nacrta / mjerenja -->
+    <div class="hero__media" style="background-image:url('img/slika2_homepage.jpeg')"></div>
+    <div class="hero__scrim"></div>
+    <span class="eyebrow rise"><i></i>Precizno planiranje</span>
+    <h2 class="rise d1">Mjerimo dva puta,<br><em>crtamo jedanput</em></h2>
+    <p class="lead rise d2">Svaki milimetar prostora dobiva svoju namjenu &mdash; od nacrta do zavr&scaron;ne monta&#382;e.</p>
+  </section>
+
+  <!-- SLIKA 3 -->
+  <section class="hero" id="slika-3">
+    <!-- UREDI: zamijeni s fotografijom ugradbenog ormara -->
+    <div class="hero__media" style="background-image:url('img/slika2_homepage.jpeg')"></div>
+    <div class="hero__scrim"></div>
+    <span class="eyebrow rise"><i></i>Pametna rje&scaron;enja</span>
+    <h2 class="rise d1">Radimo prostor<br><em>tamo di ga je malo</em></h2>
+    <p class="lead rise d2">Ormari, ni&scaron;e i ugradbeni namje&scaron;taj izra&#273;eni to&#269;no za va&scaron; prostor.</p>
+  </section>
+
+</main>
+
+<footer>
+  <div class="footer-inner">
+
+    <div class="footer-col footer-brand">
+      <span class="brand-name">NAZIV_FIRME</span>
+      <p class="footer-about">Ru&#269;no izra&#273;ene <strong>kuhinje po mjeri</strong>, ormari i namje&scaron;taj, prema Va&scaron;im &#382;eljama.</p>
+    </div>
+
+    <div class="footer-col">
+      <span class="footer-label">Kontakt</span>
+      <!-- UREDI: mail i telefon -->
+      <p class="footer-kontakt"><a href="mailto:EMAIL_ZA_KONTAKT">EMAIL_ZA_KONTAKT</a></p>
+      <p class="footer-kontakt"><a href="tel:+385000000000">+385 00 000 0000</a></p>
+      <div>
+        <a href="kontakt.html" class="btn">Pošaljite upit &#8594;</a>
+        <!-- UREDI: link na tvoju Facebook stranicu -->
+        <a href="FACEBOOK_LINK" class="btn btn--linija">Facebook</a>
+      </div>
+    </div>
+
+    <div class="footer-col">
+      <span class="footer-label">Podaci o tvrtki</span>
+      <!-- UREDI: pravi naziv, sjedište i OIB -->
+      <p>NAZIV_FIRME d.o.o.</p>
+      <p>SJEDIŠTE_FIRME</p>
+      <p>OIB: OIB_BROJ</p>
+    </div>
+
+  </div>
+  <div class="footer-bottom">&copy; 2026 NAZIV_FIRME. Sva prava pridržana.</div>
+</footer>
+
+</body>
+</html>
